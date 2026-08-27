@@ -23,12 +23,17 @@ flow:
           kind: invoke
           capability: "general/tdd"
           output: "green-implementation"
-      else: []
+      else:
+        - id: approved-non-tdd-change
+          kind: action
+          action: "runtime.apply-approved-change"
+          optional: true
+          fallback: "agent"
     - id: refactor-inspection
       kind: invoke
       capability: "general/refactor"
       inputs:
-        baseline: "green-implementation-or-current-change"
+        baseline: "green-implementation-or-approved-non-tdd-change"
       output: "refactor-result"
     - id: verify
       kind: action
@@ -62,7 +67,7 @@ extensions: {}
 
 `implement` is a general executable flow, not a policy-heavy skill. The approved spec/ticket plus `coding-agent-conventions` determine the testing strategy.
 
-Behavior changes use TDD when the approved strategy calls for it. Pure refactors, configuration changes, generated artifacts, and similar work may use a non-TDD path; the caller/current agent performs that already-approved bounded edit without inventing a second testing doctrine.
+Behavior changes use TDD when the approved strategy calls for it. Pure refactors, configuration changes, generated artifacts, and similar approved non-TDD work use the explicit `runtime.apply-approved-change` step. A runtime may provide that action; otherwise its declared `agent` fallback means the current agent performs the already-approved bounded edit. This is an execution hook, not a 27th reasoning capability and not a second testing doctrine.
 
 Every implementation passes through refactor inspection; `refactor` may return `no-refactor-needed`. Required repository verification follows, then independent code review. One bounded remediation path may run if blocking findings exist. There are no loops/retries in this flow.
 
