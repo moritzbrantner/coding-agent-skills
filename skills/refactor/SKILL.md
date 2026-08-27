@@ -28,4 +28,4 @@ Refactor any behavior-preserving structural improvement; generated/prototype cod
 
 Work in small, reviewable, behavior-preserving slices and re-run focused verification after each meaningful change.
 
-Stack-specific style, extraction thresholds, module vocabulary, and design doctrine come from `coding-agent-conventions`. Without it, minimize public surface area, keep related behavior local, prefer cohesive deep modules over forwarding layers, and avoid introducing architecture solely for symmetry.
+Stack-specific style, extraction thresholds, module vocabulary, and design doctrine come from the current resolved `coding-agent-conventions` stack. When shared conventions are available, obtain them through `coding-tooling conventions resolve` and apply repository-local instructions as the most specific policy. If live convention resolution is unavailable, state that limitation and minimize public surface area, keep related behavior local, prefer cohesive deep modules over forwarding layers, and avoid introducing architecture solely for symmetry.
