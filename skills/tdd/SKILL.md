@@ -16,7 +16,7 @@ extensions: {}
 
 TDD is strictly **red -> green**. Refactoring is deliberately outside this skill.
 
-Consume the approved testing strategy from the caller, spec, or ticket. Do not interrupt the user to reconfirm an already settled seam. For a direct invocation, infer established public seams from conventions and repository structure; ask only when there is a genuine unresolved design choice.
+Consume the approved testing strategy from the caller, spec, or ticket. Do not interrupt the user to reconfirm an already settled seam. For a direct invocation, infer established public seams from the live resolved conventions and repository structure; ask only when there is a genuine unresolved design choice.
 
 For one bounded behavior slice:
 
@@ -28,4 +28,4 @@ For one bounded behavior slice:
 
 Do not perform cleanup/refactoring here. Do not change behavior merely to make a test convenient. Avoid mocks when a stable public seam can exercise the behavior; use test doubles only at real boundaries.
 
-When `coding-agent-conventions` is available, its testing policy is authoritative. Without it, prefer public behavior, deterministic tests, repository-established test locations, and minimal mocking.
+When `coding-agent-conventions` is available, resolve the current repository stack through `coding-tooling conventions resolve`; its testing policy is authoritative subject to repository-local overrides. Without live convention resolution, state that limitation and prefer public behavior, deterministic tests, repository-established test locations, and minimal mocking.

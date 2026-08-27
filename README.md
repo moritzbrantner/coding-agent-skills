@@ -49,6 +49,18 @@ Removed from the initial catalog: `research`, `characterize-feature`, `grill-me`
 
 The strict interchange shape is defined by `agent-contracts`. Deterministic parsing, graph validation, profile resolution, and action mechanics are owned by `coding-tooling`.
 
+## Shared policy context
+
+Skills do not copy engineering doctrine from `coding-agent-conventions`. For repository work, obtain the current applicable policy through:
+
+```bash
+coding-tooling conventions resolve --root /path/to/repository --json
+```
+
+The resolver discovers the live conventions checkout, infers the repository's technology stack, resolves any stable convention IDs declared by the repository, and reports repository-local instructions separately. Skills read that resolved context and apply local instructions as the most specific policy.
+
+A run may record the resolver's observed `sourceRevision` for reproducibility. Consumer repositories do not need to pin or vendor that revision merely to receive future convention updates.
+
 ## Validate
 
 Run:
@@ -63,7 +75,7 @@ The command delegates to `coding-tooling`; this repository intentionally does no
 
 - `coding-agent-skills`: reasoning skills, flows, profiles, source capability metadata.
 - `coding-agent-conventions`: stable engineering policy and vocabulary.
-- `coding-tooling`: deterministic discovery, parsing, checks, scope resolution, and actions.
+- `coding-tooling`: deterministic discovery, parsing, checks, scope/convention resolution, and actions.
 - `agent-contracts`: cross-component contracts.
 - `agent-loop-orchestrator`: durable work state, scheduling, worktrees, retries, authority, candidates, receipts, and integration.
 - `agent-loop-setup`: machine-level bootstrap/environment integration.

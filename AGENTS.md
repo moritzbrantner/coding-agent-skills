@@ -6,8 +6,9 @@ This repository owns general coding-agent reasoning skills, declarative flows, a
 
 - General capabilities must remain usable without `agent-loop-orchestrator`.
 - Do not require GitHub, GitLab, or another issue tracker.
-- Deterministic mechanics belong in `coding-tooling`; do not reimplement parsers, check selection, scope resolution, formatting, verification, or VCS mechanics as prose.
-- Stable engineering doctrine belongs in `coding-agent-conventions`; skills apply it to concrete work. When conventions are unavailable, use only the minimal fallback behavior stated by the skill.
+- Deterministic mechanics belong in `coding-tooling`; do not reimplement parsers, check selection, scope resolution, formatting, verification, convention resolution, or VCS mechanics as prose.
+- Stable engineering doctrine belongs in `coding-agent-conventions`; skills apply it to concrete work. When shared policy is available, obtain the current applicable stack through `coding-tooling conventions resolve` rather than copied convention text or stale hard-coded paths. When conventions are unavailable, use only the minimal fallback behavior stated by the skill.
+- Treat the convention resolver's `sourceRevision` as evidence about the policy applied to a run. Do not require consumer repositories to pin that revision merely to receive shared policy updates.
 - Cross-repository structured interchange belongs in `agent-contracts`.
 - Durable queues, scheduling, worktrees, retries, authority, run history, integration, and receipts belong in an orchestrator or caller, not in these skills.
 
