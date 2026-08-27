@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if command -v coding-tooling >/dev/null 2>&1; then
+  exec coding-tooling agent-capabilities validate .
+fi
+
+if [[ -n "${CODING_TOOLING_ROOT:-}" && -f "${CODING_TOOLING_ROOT}/src/cli.ts" ]]; then
+  exec bun "${CODING_TOOLING_ROOT}/src/cli.ts" agent-capabilities validate .
+fi
+
+echo "coding-tooling is required to validate the capability catalog." >&2
+echo "Install it through the machine environment or set CODING_TOOLING_ROOT." >&2
+exit 2
