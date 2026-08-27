@@ -1,0 +1,21 @@
+name: Validate capabilities
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  capability-catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate capability sources
+        uses: moritzbrantner/coding-tooling@d04f24058e1bb18e3d703beced92949f906a7c63
+        with:
+          operation: agent-capabilities-validate

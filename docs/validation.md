@@ -6,6 +6,8 @@
 scripts/validate-capabilities
 ```
 
-A strict hosted CI gate should invoke the same `agent-capabilities validate` operation once the shared `coding-tooling` composite action exposes that operation directly. Do not copy the parser into this repository merely to make CI self-contained.
+Hosted CI invokes the same canonical parser through the version-pinned `coding-tooling` composite action. The workflow pins the exact source revision rather than depending on a floating publication or package release.
 
-Validation must cover stable IDs, frontmatter shape, profile inheritance/resolution, stable entry-point profile membership, flow DAG cycles, required/optional deterministic action semantics, readiness predicates, and generated catalog construction.
+Validation covers stable IDs, strict frontmatter shape, profile inheritance/resolution, stable entry-point profile membership, flow DAG cycles, required/optional deterministic action semantics, readiness predicates, action references, and generated catalog construction.
+
+Generated catalog fragments are validation output only and are not committed.
