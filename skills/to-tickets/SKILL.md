@@ -34,6 +34,6 @@ Decompose one canonical spec revision into individual Markdown ticket artifacts.
 
 Construct and show the **complete proposed graph** before persistence. On direct human invocation, require human approval of the graph before writing ticket artifacts. An Agent Loop wrapper may omit that gate only when its surrounding flow already explicitly authorized decomposition of the approved spec.
 
-The ticket files themselves are the queue: existence means work remains; active execution is represented by the caller/runtime; successful integration yields an immutable completion receipt and removes the ticket. Do not add `planned/active/done` fields.
+The artifact format is deliberately compatible with the structural lifecycle we chose: a caller may treat an existing ticket as pending work, represent active work through its own run/worktree, and record successful completion with an immutable receipt before removing the ticket. **This skill does none of those lifecycle transitions.** It only produces the approved ticket artifacts and dependency graph; activation, deletion, completion receipts, integration, and execution state belong to the caller/runtime. Do not add `planned/active/done` fields to compensate.
 
 Use deterministic `coding-tooling` parsing/validation rather than creating a second structured source of truth.
