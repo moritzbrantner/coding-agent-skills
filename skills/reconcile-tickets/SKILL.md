@@ -25,10 +25,10 @@ Invoke this skill explicitly when deterministic tooling reports tickets bound to
 3. Walk the affected tickets one by one using the `grilling` decision-frontier discipline. Explain what changed and ask only the human decisions that evidence cannot settle.
 4. Decide **all affected tickets first**. Do not mutate tickets incrementally.
 5. Build and show the complete resulting dependency graph and reconciliation plan.
-6. Require final human approval, then apply the ticket mutations as one coherent reconciliation.
+6. Require final human approval, then apply the approved **ticket-artifact** mutations as one coherent reconciliation.
 
 Preserve unaffected tickets. Completed work is immutable historical fact: never invalidate or reopen a completion receipt because a later spec changed. Create new delta tickets when new work is required.
 
-If an affected ticket is currently active, mark the execution as stale through the caller/runtime and surface the human choices: cancel it, let it finish for evidence only, or replace it with revised work. A stale active ticket must not integrate automatically. Unaffected active work may continue.
+For an affected ticket that is currently active, return the semantic stale impact and ask the human for the intended disposition: cancel it, let it finish for evidence only, or replace it with revised work. The caller/runtime owns every execution-state transition: marking the run stale, preventing automatic integration, cancellation, evidence-only completion, replacement, or allowing unaffected active work to continue. This skill changes ticket artifacts only after the full reconciliation is approved.
 
-This skill reasons about semantic impact; deterministic diffing, parsing, and candidate scope discovery belong in `coding-tooling`.
+This skill reasons about semantic impact; deterministic diffing, parsing, candidate scope discovery, run state, and integration policy belong outside it.
