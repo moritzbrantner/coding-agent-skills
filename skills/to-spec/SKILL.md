@@ -23,9 +23,9 @@ Produce the canonical specification as human-readable Markdown. Do not create a 
 - Do not require or publish an issue.
 - Do not invent missing product/domain/architecture decisions. If a material decision is unresolved, route back through `grilling`, resolve it, then resume the spec.
 - Make the spec implementation-aware but not prescriptive. Record settled API/schema/module-boundary or architectural commitments that constrain the solution; omit details an implementation agent can cheaply infer.
-- Derive testing strategy primarily from repository test structure, the live resolved `coding-agent-conventions` stack, and deterministic repository discovery. Ask the human only when there is a genuine testing or architecture choice.
+- Derive testing strategy primarily from repository test structure, installed convention modules, and deterministic repository discovery. Ask the human only when there is a genuine testing or architecture choice.
 - Generic testing doctrine belongs in conventions, not in every spec.
 
 A useful spec states goals, non-goals, settled behavior, constraints, acceptance outcomes, consequential architecture commitments, and the chosen verification strategy. Acceptance outcomes should be concrete enough for later ticket decomposition and spec review.
 
-When `coding-agent-conventions` is available, obtain the current stack through `coding-tooling conventions resolve` and apply it subject to repository-local overrides. If live convention resolution is unavailable, state that limitation and use public behavior seams, existing repository test structure, and the smallest testing strategy that can demonstrate the requested behavior.
+Read repository-local guidance and relevant `.conventions/` modules when present. The installed policy is the policy context for the repository; do not silently fetch a newer central policy revision while writing a spec. Use live `coding-tooling conventions resolve` only as a migration fallback for repositories that have not installed convention modules.

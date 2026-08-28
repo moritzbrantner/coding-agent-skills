@@ -4,6 +4,16 @@ Canonical home for the general coding-agent skills and declarative flows approve
 
 The repository is provider-agnostic and independently usable. General capabilities never depend on `agent-loop-orchestrator`; Agent Loop may consume and wrap them with task identity, scope, authority, evidence, worktrees, and durable runtime state.
 
+## Responsibility
+
+Skills answer:
+
+> How should an agent perform this kind of work?
+
+They own reusable reasoning procedures and flows: implementation, debugging, review, refactoring, planning, architecture work, and similar activities.
+
+They do **not** own shared code policy. `coding-agent-conventions` answers what resulting code must satisfy. Repository-local `AGENTS.md` files own repository-specific context, commands, architecture boundaries, and exceptions.
+
 ## Initial stable catalog
 
 `minimal` enables:
@@ -49,17 +59,20 @@ Removed from the initial catalog: `research`, `characterize-feature`, `grill-me`
 
 The strict interchange shape is defined by `agent-contracts`. Deterministic parsing, graph validation, profile resolution, and action mechanics are owned by `coding-tooling`.
 
-## Shared policy context
+## Convention context
 
-Skills do not copy engineering doctrine from `coding-agent-conventions`. For repository work, obtain the current applicable policy through:
+Skills do not copy engineering doctrine from `coding-agent-conventions`.
 
-```bash
-coding-tooling conventions resolve --root /path/to/repository --json
-```
+For repository work, prefer the repository's committed policy context:
 
-The resolver discovers the live conventions checkout, infers the repository's technology stack, resolves any stable convention IDs declared by the repository, and reports repository-local instructions separately. Skills read that resolved context and apply local instructions as the most specific policy.
+1. read repository-local `AGENTS.md` guidance;
+2. read `.conventions/index.md` and the relevant installed module snapshots when present;
+3. use `coding-tooling conventions check` when convention-installation integrity matters;
+4. apply repository-local instructions as the most specific policy.
 
-A run may record the resolver's observed `sourceRevision` for reproducibility. Consumer repositories do not need to pin or vendor that revision merely to receive future convention updates.
+Skills must not require live access to the shared conventions repository during ordinary work. `coding-tooling conventions resolve` is only a migration fallback for repositories that have not yet adopted installed convention modules.
+
+A repository's `conventions.lock.json` records which shared policy revision was installed. That lock is repository evidence and update state; skills should not invent their own policy pinning or synchronization mechanism.
 
 ## Validate
 
@@ -73,9 +86,10 @@ The command delegates to `coding-tooling`; this repository intentionally does no
 
 ## Landscape boundaries
 
-- `coding-agent-skills`: reasoning skills, flows, profiles, source capability metadata.
-- `coding-agent-conventions`: stable engineering policy and vocabulary.
-- `coding-tooling`: deterministic discovery, parsing, checks, scope/convention resolution, and actions.
+- `coding-agent-skills`: reusable reasoning skills, flows, profiles, and source capability metadata.
+- `coding-agent-conventions`: shared engineering policy and registry vocabulary.
+- repository `AGENTS.md`: repository-specific context and exceptions.
+- `coding-tooling`: deterministic discovery, parsing, checks, convention installation/integrity, and action mechanics.
 - `agent-contracts`: cross-component contracts.
-- `agent-loop-orchestrator`: durable work state, scheduling, worktrees, retries, authority, candidates, receipts, and integration.
+- `agent-loop-orchestrator`: optional durable work state, scheduling, worktrees, retries, authority, candidates, receipts, and integration.
 - `agent-loop-setup`: machine-level bootstrap/environment integration.
