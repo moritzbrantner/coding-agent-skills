@@ -14,12 +14,12 @@ extensions: {}
 
 # Codebase Design
 
-Apply the stable design vocabulary from the current resolved `coding-agent-conventions` stack to the concrete problem; do not duplicate that doctrine here. When shared conventions are available, obtain them through `coding-tooling conventions resolve` and read the returned files together with repository-local instructions.
+Apply the stable design vocabulary from repository-local guidance and the installed `.conventions/` modules to the concrete problem; do not duplicate that doctrine here. The policy committed in the consumer repository is the policy context for the design exercise. Use live `coding-tooling conventions resolve` only as a migration fallback when installed modules are unavailable.
 
-Understand the behavior and ownership boundaries first. Identify where state, policy, data, and side effects naturally belong. Prefer cohesive deep modules, small public surfaces, locality, and progressive composition over forwarding layers or central ontologies when those principles are part of the applicable policy.
+Understand the behavior and ownership boundaries first. Identify where state, policy, data, and side effects naturally belong. Prefer cohesive deep modules, small public surfaces, locality, and progressive composition when those principles are part of the applicable installed policy.
 
 Consider at least two plausible designs when the choice is consequential. Compare them against coupling, reversibility, operational complexity, testability, migration cost, and how much new abstraction they require. Recommend the smallest design that solves the actual boundary problem.
 
 This skill designs; it does not silently perform a broad architectural migration. Settled consequential choices can be handed to domain/ADR documentation and an implementation/refactoring flow.
 
-If live convention resolution is unavailable, state that limitation and use the minimal fallback: make ownership explicit, keep APIs narrow, keep related behavior together, avoid circular dependencies, and do not introduce a coordination layer unless the workload actually needs coordination.
+If no shared conventions are installed and the compatibility resolver is unavailable, state that limitation and use the minimal fallback: make ownership explicit, keep APIs narrow, keep related behavior together, avoid circular dependencies, and do not introduce a coordination layer unless the workload actually needs coordination.
