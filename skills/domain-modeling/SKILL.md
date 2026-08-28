@@ -33,4 +33,4 @@ When a domain decision becomes settled, write the appropriate durable change and
 
 Recommend an ADR when a decision is hard to reverse, surprising, or involves a real tradeoff, but ask before creating one. Default ADRs are minimal: context, decision, and why. Add alternatives, consequences, status, or other sections only when useful. A typo or clarification may edit an ADR; an actual decision change creates a new ADR and marks the previous one superseded.
 
-When `coding-agent-conventions` is available, resolve the current repository stack through `coding-tooling conventions resolve`; its documentation paths and design vocabulary are authoritative subject to repository-local overrides. Without live convention resolution, state that limitation, use the defaults above, and avoid inventing extra structure.
+Use repository-local guidance and installed `.conventions/` modules for documentation paths and design vocabulary when present. The repository's committed policy context is authoritative subject to local overrides. Use live `coding-tooling conventions resolve` only as a migration fallback when installed modules are unavailable.
