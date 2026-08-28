@@ -16,12 +16,12 @@ extensions: {}
 
 This is a read-only architecture review.
 
-Inspect module/service boundaries, dependency direction, public surface area, state ownership, duplicated policy, cross-cutting coupling, and whether abstractions correspond to real independent concepts. Compare the code to settled ADR/domain knowledge and the design doctrine in the current resolved `coding-agent-conventions` stack.
+Inspect module/service boundaries, dependency direction, public surface area, state ownership, duplicated policy, cross-cutting coupling, and whether abstractions correspond to real independent concepts. Compare the code to settled ADR/domain knowledge, repository-local guidance, and the design doctrine in the installed `.conventions/` modules.
 
-When shared conventions are available, obtain the applicable stack through `coding-tooling conventions resolve`, read the returned files, and apply repository-local instructions as the most specific policy. Do not rely on consumer-side copies of shared doctrine.
+Review against the policy committed to the repository rather than fetching a newer central policy revision. `coding-tooling conventions check` may verify the managed snapshots against their lock. Use live `coding-tooling conventions resolve` only as a migration fallback when installed convention modules are unavailable.
 
 Report specific findings with evidence and likely consequence. Distinguish local cleanup from a genuinely consequential redesign. Do not recommend a large migration merely because a different shape is aesthetically cleaner.
 
 When docs and code disagree about intended architecture, investigate and surface the contradiction rather than declaring one side authoritative.
 
-The output should be usable by `codebase-design` or `improve-codebase-architecture`; this skill does not mutate code. If live convention resolution is unavailable, state that limitation rather than silently assuming project-specific preferences.
+The output should be usable by `codebase-design` or `improve-codebase-architecture`; this skill does not mutate code. If neither installed conventions nor the compatibility resolver are available, state that limitation rather than silently assuming project-specific preferences.
