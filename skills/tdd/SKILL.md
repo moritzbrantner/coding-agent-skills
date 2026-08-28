@@ -28,4 +28,4 @@ For one bounded behavior slice:
 
 Do not perform cleanup/refactoring here. Do not change behavior merely to make a test convenient. Avoid mocks when a stable public seam can exercise the behavior; use test doubles only at real boundaries.
 
-Read the repository's installed `.conventions/` testing policy when present, subject to repository-local overrides. `coding-tooling conventions check` can verify that the installed snapshots match their lock. Use live `conventions resolve` only as a migration fallback when the repository has not adopted installed convention modules.
+Read the repository's installed `.conventions/` testing policy when present, subject to repository-local overrides. `coding-tooling conventions check` can verify that the installed snapshots match their lock. If the repository has adopted installed policy and that installation is broken, report the failure rather than substituting live policy. Use `coding-tooling conventions resolve` only as a migration fallback for repositories that have not adopted installed convention modules.
