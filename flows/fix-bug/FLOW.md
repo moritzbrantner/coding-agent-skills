@@ -53,4 +53,6 @@ extensions: {}
 
 The diagnostic skill may hand over a failing reproducer/test, but this flow decides whether it becomes permanent and owns the actual red-to-green transition.
 
+Before changing code, use the consumer repository's `AGENTS.md` and installed `.conventions/` modules as the policy context. A bug fix should not fetch a newer convention revision mid-run; convention updates are separate deliberate repository changes. Repositories that have not migrated may temporarily use `coding-tooling conventions resolve` as a compatibility fallback.
+
 If diagnosis evidence cannot settle intended behavior, the human gate resolves that ambiguity before code changes. After green, refactor inspection, repository verification, and review are required. Any later remediation is a separate bounded caller decision; this flow does not loop.
