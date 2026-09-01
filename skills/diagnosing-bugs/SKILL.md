@@ -20,7 +20,7 @@ Reproduce the symptom on the smallest trustworthy path, establish expected versu
 
 For browser-visible symptoms, use `general/browser-investigation` when it is available rather than diagnosing only from source. Capture only the semantic browser, console, network, or trace evidence needed to isolate the failing boundary.
 
-Produce the shared diagnosis envelope expected by `agent-contracts`, including symptom/reproduction evidence, likely root cause, confidence, affected surface, and useful next verification.
+Produce the shared diagnosis envelope expected by `agent-contracts`, including symptom/reproduction evidence, likely root cause, confidence, affected surface, and useful next verification. Use the normalized affected-surface value `browser` when the behavior requires post-fix verification in a real browser; this lets executable caller flows schedule that verification deterministically.
 
 You may create a failing regression test, reproducer, or instrumentation change as **handoff evidence**, but do not integrate it and do not turn diagnosis into a hidden fix. `fix-bug` decides whether that test becomes permanent and owns the red-to-green transition.
 
