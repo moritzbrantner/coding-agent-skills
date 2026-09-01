@@ -4,6 +4,7 @@ capabilities = [
   "general/to-tickets",
   "general/reconcile-tickets",
   "general/review-and-fix",
+  "general/browser-investigation",
   "general/diagnosing-bugs",
   "general/fix-bug",
   "general/diagnosing-performance",

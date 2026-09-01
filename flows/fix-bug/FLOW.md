@@ -7,7 +7,7 @@ maturity: "stable"
 entry-point: true
 intents: ["bug", "fix", "regression"]
 requires: []
-related-to: ["general/diagnosing-bugs", "general/tdd", "general/refactor"]
+related-to: ["general/diagnosing-bugs", "general/browser-investigation", "general/tdd", "general/refactor"]
 readiness:
   - predicate: "action-available"
     action: "repository.verify"
@@ -39,6 +39,20 @@ flow:
       inputs:
         baseline: "green-fix"
       output: "refactor-result"
+    - id: browser-verification
+      kind: branch
+      condition:
+        source: "diagnosis.affected-surface"
+        equals: "browser"
+      then:
+        - id: exercise-browser-boundary
+          kind: invoke
+          capability: "general/browser-investigation"
+          inputs:
+            diagnosis: "diagnosis"
+            baseline: "refactor-result"
+          output: "browser-evidence"
+      else: []
     - id: verify
       kind: action
       action: "repository.verify"
@@ -53,6 +67,8 @@ extensions: {}
 
 The diagnostic skill may hand over a failing reproducer/test, but this flow decides whether it becomes permanent and owns the actual red-to-green transition.
 
+Browser-visible diagnoses use `affected-surface: browser`, which makes the executable flow invoke `general/browser-investigation` after the fix/refactor and before repository verification. Interactive browser evidence supplements rather than replaces the durable regression test owned by the TDD step.
+
 Before changing code, use the consumer repository's `AGENTS.md` and installed `.conventions/` modules as the policy context. A bug fix should not fetch a newer convention revision mid-run; convention updates are separate deliberate repository changes. Repositories that have not migrated may temporarily use `coding-tooling conventions resolve` as a compatibility fallback.
 
-If diagnosis evidence cannot settle intended behavior, the human gate resolves that ambiguity before code changes. After green, refactor inspection, repository verification, and review are required. Any later remediation is a separate bounded caller decision; this flow does not loop.
+If diagnosis evidence cannot settle intended behavior, the human gate resolves that ambiguity before code changes. After green, refactor inspection, conditional browser verification, repository verification, and review are required. Any later remediation is a separate bounded caller decision; this flow does not loop.
