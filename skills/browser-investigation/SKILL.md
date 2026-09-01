@@ -1,7 +1,7 @@
 ---
 id: "general/browser-investigation"
 name: "browser-investigation"
-description: "Exercise browser-visible behavior through a real browser, collecting compact semantic evidence and turning durable findings into repository tests."
+description: "Exercise browser-visible behavior through a real browser and collect compact semantic evidence for diagnosis, implementation, or verification callers."
 kind: "skill"
 maturity: "stable"
 entry-point: true
@@ -25,7 +25,7 @@ Prefer the repository's own development and test entrypoints. Use the installed 
 5. When evidence crosses a mocked or stubbed network boundary, verify the double preserves the production protocol semantics before changing product code. Compare the relevant request method, status, headers, body, and stateful or streaming behavior such as redirects, cookies/authentication, CORS/cache handling, byte ranges and `206 Partial Content`, downloads, SSE, or WebSockets. Prefer the real local service when that is cheap and deterministic; otherwise use a protocol-faithful double. Treat a mismatch as a test-environment defect until the product hypothesis is independently established.
 6. Prefer semantic state evidence over screenshots. Capture screenshots or video when visual layout or transient presentation is itself relevant.
 7. Treat cookies, storage state, traces, HARs, screenshots, and videos as potentially sensitive. Do not commit authentication state or unsanitized captured session data.
-8. For a behavior change or bug fix, convert the finding into the smallest durable repository-owned automated test at the appropriate browser boundary. Interactive exploration is evidence, not the regression gate.
+8. Preserve caller ownership of durable test creation. A fixing or implementation caller may turn confirmed browser evidence into the smallest repository-owned automated test at the appropriate boundary. A diagnosis caller returns test suggestions or non-integrated handoff evidence only; it must not make a diagnostic investigation silently create or integrate the permanent regression test.
 9. Close the investigation session unless outer orchestration owns its lifecycle.
 
-If the browser environment is unavailable, report that evidence boundary explicitly and continue only with the strongest repository-level evidence available; do not claim browser verification occurred.
+Interactive exploration is evidence, not the regression gate. If the browser environment is unavailable, report that evidence boundary explicitly and continue only with the strongest repository-level evidence available; do not claim browser verification occurred.
