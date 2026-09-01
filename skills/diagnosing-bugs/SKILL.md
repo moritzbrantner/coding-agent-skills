@@ -7,7 +7,7 @@ maturity: "stable"
 entry-point: true
 intents: ["bug", "diagnose", "debug"]
 requires: []
-related-to: ["general/fix-bug", "general/tdd"]
+related-to: ["general/fix-bug", "general/tdd", "general/browser-investigation"]
 readiness: []
 extensions: {}
 ---
@@ -17,6 +17,8 @@ extensions: {}
 Diagnose before fixing.
 
 Reproduce the symptom on the smallest trustworthy path, establish expected versus observed behavior, narrow the failing boundary, test competing hypotheses, and identify the root cause with explicit confidence and evidence.
+
+For browser-visible symptoms, use `general/browser-investigation` when it is available rather than diagnosing only from source. Capture only the semantic browser, console, network, or trace evidence needed to isolate the failing boundary.
 
 Produce the shared diagnosis envelope expected by `agent-contracts`, including symptom/reproduction evidence, likely root cause, confidence, affected surface, and useful next verification.
 
