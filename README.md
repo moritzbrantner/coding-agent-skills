@@ -34,6 +34,7 @@ They do **not** own shared code policy. `coding-agent-conventions` answers what 
 - `to-tickets`
 - `reconcile-tickets`
 - `review-and-fix`
+- `browser-investigation`
 - `diagnosing-bugs`
 - `fix-bug`
 - `diagnosing-performance`
