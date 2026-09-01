@@ -7,7 +7,7 @@ maturity: "stable"
 entry-point: true
 intents: ["bug", "fix", "regression"]
 requires: []
-related-to: ["general/diagnosing-bugs", "general/tdd", "general/refactor"]
+related-to: ["general/diagnosing-bugs", "general/browser-investigation", "general/tdd", "general/refactor"]
 readiness:
   - predicate: "action-available"
     action: "repository.verify"
@@ -52,6 +52,8 @@ extensions: {}
 # Fix Bug
 
 The diagnostic skill may hand over a failing reproducer/test, but this flow decides whether it becomes permanent and owns the actual red-to-green transition.
+
+When the diagnosis or change is browser-visible, use `general/browser-investigation` to verify the actual browser boundary when available. Interactive browser evidence supplements rather than replaces the durable regression test owned by the TDD step.
 
 Before changing code, use the consumer repository's `AGENTS.md` and installed `.conventions/` modules as the policy context. A bug fix should not fetch a newer convention revision mid-run; convention updates are separate deliberate repository changes. Repositories that have not migrated may temporarily use `coding-tooling conventions resolve` as a compatibility fallback.
 
