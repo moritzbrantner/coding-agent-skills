@@ -3,7 +3,7 @@ id: "general/capability-internalization"
 name: "capability-internalization"
 description: "Evaluate whether an externally implemented capability should remain external, gain a stable boundary, or be replaced by a smaller specialized implementation using parity, performance, and consumer evidence."
 kind: "skill"
-maturity: "experimental"
+maturity: "provisional"
 entry-point: true
 intents: ["dependency-replacement", "capability-internalization", "native-kernel", "performance"]
 requires: []
