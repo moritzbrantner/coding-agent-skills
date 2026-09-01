@@ -48,6 +48,12 @@ They do **not** own shared code policy. `coding-agent-conventions` answers what 
 - `resolve-merge-conflicts`
 - `choose-workflow`
 
+## Experimental skills
+
+Experimental skills are discoverable but are not enabled by the stable `minimal` or `standard` profiles until their procedure has been exercised and deliberately promoted.
+
+- `capability-internalization` — evaluate whether an external capability should remain external, gain a stable boundary, or be replaced by a smaller specialized implementation using parity, performance, and real-consumer evidence.
+
 Removed from the initial catalog: `research`, `characterize-feature`, `grill-me`, general `handoff`, setup-as-a-skill, and peripheral helper skills.
 
 ## Source model
