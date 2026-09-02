@@ -16,6 +16,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Validate capability sources
-        uses: moritzbrantner/coding-tooling@d04f24058e1bb18e3d703beced92949f906a7c63
+        uses: moritzbrantner/coding-tooling@c8682a4804397f82099bd7f567ac4a6e8a18658e
         with:
           operation: agent-capabilities-validate
+      - name: Inspect deterministic repository findings
+        uses: moritzbrantner/coding-tooling@c8682a4804397f82099bd7f567ac4a6e8a18658e
+        with:
+          operation: findings
+          report-path: .artifacts/coding-tooling/findings.json
