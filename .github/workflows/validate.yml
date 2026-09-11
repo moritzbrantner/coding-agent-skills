@@ -15,12 +15,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Verify deterministic foundation
+        uses: moritzbrantner/coding-tooling@8a56d5a1961a980719c354f7877d05a514e33ec2
+        with:
+          operation: conformance
+          strict: true
+          report-path: .artifacts/coding-tooling/conformance.json
       - name: Validate capability sources
-        uses: moritzbrantner/coding-tooling@c8682a4804397f82099bd7f567ac4a6e8a18658e
+        uses: moritzbrantner/coding-tooling@8a56d5a1961a980719c354f7877d05a514e33ec2
         with:
           operation: agent-capabilities-validate
       - name: Inspect deterministic repository findings
-        uses: moritzbrantner/coding-tooling@c8682a4804397f82099bd7f567ac4a6e8a18658e
+        uses: moritzbrantner/coding-tooling@8a56d5a1961a980719c354f7877d05a514e33ec2
         with:
           operation: findings
           report-path: .artifacts/coding-tooling/findings.json

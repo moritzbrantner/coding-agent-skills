@@ -38,4 +38,6 @@ Run the review axes independently and keep their findings separate. Standards re
 
 For repository work, standards review uses repository-local guidance and the convention modules committed under `.conventions/`. Review the policy actually installed for the candidate rather than silently fetching a newer central policy revision. `coding-tooling conventions check` may be used to detect tampered or stale managed snapshots relative to the committed lock; central updates are a separate explicit repository change.
 
+Repository-owned deterministic findings may be supplied as evidence to any review axis. Heuristic `coding-tooling` findings remain advisory unless repository policy explicitly promotes the detector or the review axis independently substantiates a defect. Keep advisory detector output distinct from blocking review findings; do not fail review merely because a heuristic score or signal is non-zero.
+
 Standards findings must not be disguised as spec failures, and spec failures must trace to the applicable spec/ticket. This flow is read-only. It does not remediate findings; remediation belongs to `review-and-fix` or another caller.
