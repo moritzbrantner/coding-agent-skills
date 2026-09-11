@@ -22,6 +22,8 @@ When convention integrity matters, `coding-tooling conventions check` verifies t
 
 Report concrete findings against engineering standards: correctness risks, maintainability problems, test-policy violations, boundary mistakes, unsafe complexity, or convention violations. When a finding depends on shared policy, name the stable convention ID when practical. `conventions.lock.json` provides the installed policy revision when the caller records reproducibility metadata.
 
+Treat heuristic detector output as evidence rather than policy. A `coding-tooling findings` signal or score becomes blocking only when repository policy explicitly promotes that detector or independent review evidence establishes a concrete standards defect. Keep unpromoted detector output clearly advisory.
+
 Keep findings evidence-based and independently understandable. Include the affected location/area, why it matters, and the smallest useful remediation direction. Do not modify code, do not collapse findings into a generic score, and do not invent requirements from a spec.
 
 Only when the repository has not adopted installed conventions and the compatibility resolver is unavailable, state that limitation and use these minimal fallback standards: preserve correctness, respect existing repository patterns, keep interfaces small/cohesive, test public behavior, avoid unnecessary state/abstraction, and run repository-owned checks.

@@ -54,4 +54,6 @@ extensions: {}
 
 This flow consumes an existing set of review findings. It performs exactly one explicit remediation pass and one re-review. There is no retry loop.
 
+Do not automatically patch advisory detector output. Remediate only findings that are blocking because repository policy requires them or concrete evidence establishes a defect; preserve unpromoted heuristic findings as residual advice.
+
 Behavior-changing findings return through TDD; behavior-preserving structural findings go through refactoring. If blocking findings remain after the second review, stop and report them to the caller.
