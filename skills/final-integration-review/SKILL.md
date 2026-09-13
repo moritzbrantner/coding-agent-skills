@@ -8,7 +8,9 @@ entry-point: true
 intents: ["review", "integrate", "merge", "pull-request"]
 requires: []
 related-to: ["general/prepare-handoff", "general/review-and-fix", "general/code-review", "general/cross-repository-boundary-review"]
-readiness: []
+readiness:
+  - predicate: "tool-available"
+    tool: "coding-tooling"
 extensions: {}
 ---
 
@@ -29,7 +31,8 @@ Use this when a pull request is believed to be complete and the remaining questi
    - compatibility, persistence, protocol, security, deterministic replay, and browser/mobile boundaries implicated by the change;
    - performance claims, which require equivalent benchmark evidence rather than merely a green functional suite.
 5. Re-check review comments after repairs. Do not treat an outdated thread as resolved merely because its line moved; verify the concern no longer applies, reply with the repair evidence, and resolve the thread only then.
-6. If the PR head changes at any point, discard the integration receipt and repeat the exact-head review.
-7. When both the mechanical receipt and semantic review pass, return an integration-ready decision bound to the exact head SHA. If the caller already has explicit authority to integrate, hand that exact candidate to the repository's existing integration/auto-merge capability without asking for duplicate confirmation. Otherwise return the decision to the caller for the required authority step.
+6. If the PR head or base changes during the review, discard the integration receipt and repeat the exact-head review from step 1.
+7. Immediately before returning an integration-ready decision, re-resolve the current head and base. If either differs from the reviewed identities, repeat from step 1. Otherwise generate a fresh `coding-tooling pr receipt` with the same expected head and base and stop unless it passes. This refresh is required even when no file changed so mutable check, draft/mergeability, stack, and review-thread state is re-evaluated by `coding-tooling` instead of relying on a cached receipt.
+8. When the fresh mechanical receipt and semantic review both pass, return an integration-ready decision bound to the exact head SHA. If the caller already has explicit authority to integrate, hand that exact candidate to the repository's existing integration/auto-merge capability without asking for duplicate confirmation. Otherwise return the decision to the caller for the required authority step.
 
-Do not implement merge queues, VCS mutation, check collection, or durable approval state in this skill. Those mechanics remain owned by `coding-tooling`, the hosting platform, or the caller/orchestrator.
+Do not implement merge queues, VCS mutation, check collection, receipt-state tracking, or durable approval state in this skill. Those mechanics remain owned by `coding-tooling`, the hosting platform, or the caller/orchestrator.
