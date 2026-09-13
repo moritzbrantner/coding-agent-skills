@@ -8,7 +8,9 @@ entry-point: true
 intents: ["continue", "next", "roadmap", "repository"]
 requires: []
 related-to: ["general/prepare-task-packet", "general/triage", "general/implement", "general/choose-workflow"]
-readiness: []
+readiness:
+  - predicate: "tool-available"
+    tool: "coding-tooling"
 extensions: {}
 ---
 
