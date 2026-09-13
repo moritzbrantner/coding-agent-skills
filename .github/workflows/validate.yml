@@ -16,9 +16,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Set up Bun
-        uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
-        with:
-          bun-version: 1.4.0
+        run: |
+          curl -fsSL https://bun.sh/install | bash -s -- bun-v1.4.0
+          echo "$HOME/.bun/bin" >> "$GITHUB_PATH"
+          test "$($HOME/.bun/bin/bun --version)" = "1.4.0"
       - name: Fetch accepted coding-tooling revision
         env:
           CODING_TOOLING_REVISION: 93f46bf2545e4a7f1b75ec0797ad087bbea9a512
