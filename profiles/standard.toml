@@ -18,4 +18,9 @@ capabilities = [
   "general/conflict-resolution",
   "general/resolve-merge-conflicts",
   "general/choose-workflow",
+  "general/prepare-task-packet",
+  "general/continue-next-slice",
+  "general/prepare-handoff",
+  "general/final-integration-review",
+  "general/cross-repository-boundary-review",
 ]
