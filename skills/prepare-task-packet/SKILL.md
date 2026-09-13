@@ -8,7 +8,9 @@ entry-point: true
 intents: ["prepare", "task", "scope", "implement"]
 requires: []
 related-to: ["general/intake-assessment", "general/implement", "general/continue-next-slice", "general/prepare-handoff"]
-readiness: []
+readiness:
+  - predicate: "tool-available"
+    tool: "coding-tooling"
 extensions: {}
 ---
 
