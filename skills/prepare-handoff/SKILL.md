@@ -8,7 +8,9 @@ entry-point: true
 intents: ["handoff", "continue", "verify", "agent"]
 requires: []
 related-to: ["general/prepare-task-packet", "general/final-integration-review", "general/review-and-fix"]
-readiness: []
+readiness:
+  - predicate: "tool-available"
+    tool: "coding-tooling"
 extensions: {}
 ---
 
