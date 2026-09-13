@@ -15,12 +15,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+      - name: Set up Bun
+        env:
+          BUN_VERSION: 1.4.0
+          BUN_LINUX_X64_SHA256: 2d03fb5fb83ac8b567aca0a281b2ce1a1a19d488f56c2968d88c3f25e92fe452
+        run: |
+          archive="$RUNNER_TEMP/bun-linux-x64.zip"
+          install_dir="$RUNNER_TEMP/bun"
+          curl -fsSLo "$archive" "https://github.com/oven-sh/bun/releases/download/bun-v${BUN_VERSION}/bun-linux-x64.zip"
+          echo "${BUN_LINUX_X64_SHA256}  ${archive}" | sha256sum --check --strict
+          unzip -q "$archive" -d "$install_dir"
+          echo "$install_dir/bun-linux-x64" >> "$GITHUB_PATH"
+          test "$($install_dir/bun-linux-x64/bun --version)" = "$BUN_VERSION"
+      - name: Fetch accepted coding-tooling revision
+        env:
+          CODING_TOOLING_REVISION: 93f46bf2545e4a7f1b75ec0797ad087bbea9a512
+        run: |
+          git clone --filter=blob:none --no-checkout https://github.com/moritzbrantner/coding-tooling.git "$RUNNER_TEMP/coding-tooling"
+          git -C "$RUNNER_TEMP/coding-tooling" checkout --detach "$CODING_TOOLING_REVISION"
+          test "$(git -C "$RUNNER_TEMP/coding-tooling" rev-parse HEAD)" = "$CODING_TOOLING_REVISION"
       - name: Validate capability sources
-        uses: moritzbrantner/coding-tooling@c8682a4804397f82099bd7f567ac4a6e8a18658e
-        with:
-          operation: agent-capabilities-validate
+        run: bun "$RUNNER_TEMP/coding-tooling/src/cli.ts" agent-capabilities validate . --json
       - name: Inspect deterministic repository findings
-        uses: moritzbrantner/coding-tooling@c8682a4804397f82099bd7f567ac4a6e8a18658e
-        with:
-          operation: findings
-          report-path: .artifacts/coding-tooling/findings.json
+        run: |
+          mkdir -p .artifacts/coding-tooling
+          set +e
+          bun "$RUNNER_TEMP/coding-tooling/src/entry.ts" findings --json > .artifacts/coding-tooling/findings.json
+          status=$?
+          set -e
+          cat .artifacts/coding-tooling/findings.json
+          exit "$status"

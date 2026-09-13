@@ -48,6 +48,11 @@ They do **not** own shared code policy. `coding-agent-conventions` answers what 
 - `conflict-resolution`
 - `resolve-merge-conflicts`
 - `choose-workflow`
+- `prepare-task-packet`
+- `continue-next-slice`
+- `prepare-handoff`
+- `final-integration-review`
+- `cross-repository-boundary-review`
 
 ## Provisional skills
 
