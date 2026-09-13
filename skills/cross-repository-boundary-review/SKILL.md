@@ -8,7 +8,9 @@ entry-point: true
 intents: ["architecture", "dependency", "authority", "multi-repository"]
 requires: []
 related-to: ["general/architecture-review", "general/final-integration-review", "general/prepare-task-packet"]
-readiness: []
+readiness:
+  - predicate: "tool-available"
+    tool: "coding-tooling"
 extensions: {}
 ---
 
