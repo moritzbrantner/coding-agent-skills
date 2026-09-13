@@ -16,10 +16,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
       - name: Set up Bun
+        env:
+          BUN_VERSION: 1.4.0
+          BUN_LINUX_X64_SHA256: 2d03fb5fb83ac8b567aca0a281b2ce1a1a19d488f56c2968d88c3f25e92fe452
         run: |
-          curl -fsSL https://bun.sh/install | bash -s -- bun-v1.4.0
-          echo "$HOME/.bun/bin" >> "$GITHUB_PATH"
-          test "$($HOME/.bun/bin/bun --version)" = "1.4.0"
+          archive="$RUNNER_TEMP/bun-linux-x64.zip"
+          install_dir="$RUNNER_TEMP/bun"
+          curl -fsSLo "$archive" "https://github.com/oven-sh/bun/releases/download/bun-v${BUN_VERSION}/bun-linux-x64.zip"
+          echo "${BUN_LINUX_X64_SHA256}  ${archive}" | sha256sum --check --strict
+          unzip -q "$archive" -d "$install_dir"
+          echo "$install_dir/bun-linux-x64" >> "$GITHUB_PATH"
+          test "$($install_dir/bun-linux-x64/bun --version)" = "$BUN_VERSION"
       - name: Fetch accepted coding-tooling revision
         env:
           CODING_TOOLING_REVISION: 93f46bf2545e4a7f1b75ec0797ad087bbea9a512
