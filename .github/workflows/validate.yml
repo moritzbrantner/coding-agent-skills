@@ -32,4 +32,9 @@ jobs:
       - name: Inspect deterministic repository findings
         run: |
           mkdir -p .artifacts/coding-tooling
-          bun "$RUNNER_TEMP/coding-tooling/src/cli.ts" findings --json | tee .artifacts/coding-tooling/findings.json
+          set +e
+          bun "$RUNNER_TEMP/coding-tooling/src/entry.ts" findings --json > .artifacts/coding-tooling/findings.json
+          status=$?
+          set -e
+          cat .artifacts/coding-tooling/findings.json
+          exit "$status"
