@@ -13,7 +13,14 @@ This repository owns general coding-agent reasoning skills, declarative flows, a
 - `coding-tooling conventions resolve` is a migration fallback only for consumers that have not adopted installed convention modules.
 - `conventions.lock.json` is evidence of the installed shared-policy revision. Skills do not own a second synchronization or pinning mechanism.
 - Cross-repository structured interchange belongs in `agent-contracts`.
-- Durable queues, scheduling, worktrees, retries, authority, run history, integration, and receipts belong in an orchestrator or caller, not in these skills.
+- Durable queues, scheduling, worktrees, retries, authority, run history, integration, and receipts belong in an orchestrator or caller, not in these skills. Skills may invoke ephemeral deterministic receipts owned by `coding-tooling` but must not persist or reinterpret them as durable state.
+
+## Authority boundaries
+
+- Owns: `coding-agent-skills/reusable-procedures`, `coding-agent-skills/workflow-routing`
+- Adapts: `coding-tooling/deterministic-evidence`, `coding-agent-conventions/policy`
+- Non-authoritative: `deterministic-repository-validation`, `durable-orchestration-state`, `product-domain-semantics`
+- Prohibited write-back: skills must not become the durable owner of run history, queues, integration state, or deterministic evidence already owned by coding-tooling or the caller
 
 ## Capability sources
 
