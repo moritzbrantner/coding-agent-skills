@@ -89,13 +89,19 @@ A repository's `conventions.lock.json` records which shared policy revision was 
 
 ## Validate
 
-Run the canonical deterministic tier:
+Run:
 
 ```bash
-coding-tooling run --tier default
+scripts/validate-capabilities
 ```
 
-The tier delegates `package:check` to `scripts/validate-capabilities`. This repository intentionally does not duplicate the `coding-tooling` parser/validator.
+When `coding-tooling` is available, also verify the installed policy snapshot with:
+
+```bash
+coding-tooling conventions check
+```
+
+This repository intentionally does not duplicate the `coding-tooling` parser/validator. `.coding-tooling.json` records the intended repository-level validation tier; executing root-level tiers in repositories without a language component is tracked upstream in `coding-tooling#233`.
 
 ## Landscape boundaries
 
