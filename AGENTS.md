@@ -1,12 +1,12 @@
 # Agent Instructions
 
-This repository owns general coding-agent reasoning skills, declarative flows, and named capability profiles.
+This repository owns general coding-agent reasoning skills, declarative flows, named capability profiles, and source-owned behavioral evaluation cases.
 
 ## Boundaries
 
 - General capabilities must remain usable without `agent-loop-orchestrator`.
 - Do not require GitHub, GitLab, or another issue tracker.
-- Deterministic mechanics belong in `coding-tooling`; do not reimplement parsers, check selection, formatting, verification, convention installation/integrity, or VCS mechanics as prose.
+- Deterministic mechanics belong in `coding-tooling`; do not reimplement parsers, check selection, formatting, verification, convention installation/integrity, evaluation execution, or VCS mechanics as prose.
 - Shared engineering doctrine belongs in `coding-agent-conventions`; skills apply it to concrete work but do not copy it.
 - Repository-specific context, commands, architecture boundaries, and exceptions belong in the consumer repository's `AGENTS.md`.
 - For repository work, read installed `.conventions/` policy when present. `coding-tooling conventions check` verifies installation integrity; do not fetch live shared policy merely to perform ordinary work.
@@ -17,9 +17,9 @@ This repository owns general coding-agent reasoning skills, declarative flows, a
 
 ## Authority boundaries
 
-- Owns: `coding-agent-skills/reusable-procedures`, `coding-agent-skills/workflow-routing`
+- Owns: `coding-agent-skills/reusable-procedures`, `coding-agent-skills/workflow-routing`, `coding-agent-skills/behavioral-eval-cases`
 - Adapts: `coding-tooling/deterministic-evidence`, `coding-agent-conventions/policy`
-- Non-authoritative: `deterministic-repository-validation`, `durable-orchestration-state`, `product-domain-semantics`
+- Non-authoritative: `deterministic-repository-validation`, `behavioral-eval-execution`, `durable-orchestration-state`, `product-domain-semantics`
 - Prohibited write-back: skills must not become the durable owner of run history, queues, integration state, or deterministic evidence already owned by coding-tooling or the caller
 
 ## Capability sources
@@ -29,6 +29,14 @@ Each skill is `skills/<name>/SKILL.md`. Each flow is `flows/<name>/FLOW.md`. Eve
 Flows are executable DAGs. They may contain capability invocations, typed deterministic actions, conditions, parallel steps, and explicit human gates. They must not contain arbitrary loops, durable retries, schedulers, or hidden state machines. Finite remediation is explicitly unrolled.
 
 Generated catalog fragments are never committed. `coding-tooling` derives them from capability sources and `profiles/*.toml`.
+
+## Behavioral evaluation
+
+Behavioral cases live under `evals/cases/`. They describe representative tasks, required observations, forbidden behavior, and acceptable terminal states. They test consequential reasoning boundaries that source-shape validation cannot establish.
+
+Do not implement an evaluator in this repository. Parsing, execution, normalization, and aggregate reporting belong in `coding-tooling`.
+
+A provisional capability is not promoted merely because its source validates. Follow `docs/promotion.md`: applicable critical cases must have acceptable outcomes, real-consumer dogfooding must cover materially different contexts, and failures must be converted into a procedure correction, eval, deterministic check, or explicit scope boundary.
 
 ## Human decisions
 
