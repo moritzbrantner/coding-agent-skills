@@ -68,9 +68,17 @@ Removed from the initial catalog: `research`, `characterize-feature`, `grill-me`
 - `skills/<name>/SKILL.md` — reusable reasoning procedures.
 - `flows/<name>/FLOW.md` — executable DAG compositions.
 - `profiles/*.toml` — automatic-use allowlists.
-- generated catalog fragments — derived by `coding-tooling`; never committed.
+- `evals/cases/*.md` — source-owned behavioral scenarios and acceptance boundaries.
+- `docs/promotion.md` — evidence required to move a provisional capability into automatic-use stability.
+- generated catalog/evaluation reports — derived by tooling; never committed as independent source truth.
 
-The strict interchange shape is defined by `agent-contracts`. Deterministic parsing, graph validation, profile resolution, and action mechanics are owned by `coding-tooling`.
+The strict interchange shape is defined by `agent-contracts`. Deterministic parsing, graph validation, profile resolution, evaluation execution, and action mechanics are owned by `coding-tooling`.
+
+## Behavioral evaluation
+
+Source validation proves that a capability is well-formed; it does not prove that the procedure makes good engineering decisions. Behavioral cases under `evals/cases/` exercise consequential distinctions such as exact-head evidence, advisory-vs-blocking findings, authority boundaries, valid no-change outcomes, and architectural performance costs.
+
+Promotion from `provisional` to `stable` follows `docs/promotion.md`. Critical behavioral boundary violations block promotion even if other cases succeed; real-consumer dogfooding is also required.
 
 ## Convention context
 
@@ -105,10 +113,10 @@ This repository intentionally does not duplicate the `coding-tooling` parser/val
 
 ## Landscape boundaries
 
-- `coding-agent-skills`: reusable reasoning skills, flows, profiles, and source capability metadata.
+- `coding-agent-skills`: reusable reasoning skills, flows, profiles, behavioral cases, and source capability metadata.
 - `coding-agent-conventions`: shared engineering policy and registry vocabulary.
 - repository `AGENTS.md`: repository-specific context and exceptions.
-- `coding-tooling`: deterministic discovery, parsing, checks, convention installation/integrity, and action mechanics.
+- `coding-tooling`: deterministic discovery, parsing, checks, evaluation execution, convention installation/integrity, and action mechanics.
 - `agent-contracts`: cross-component contracts.
 - `agent-loop-orchestrator`: optional durable work state, scheduling, worktrees, retries, authority, candidates, receipts, and integration.
 - `agent-loop-setup`: machine-level bootstrap/environment integration.
