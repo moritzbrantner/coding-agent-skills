@@ -36,14 +36,14 @@ jobs:
           git clone --filter=blob:none --no-checkout https://github.com/moritzbrantner/coding-tooling.git "$RUNNER_TEMP/coding-tooling"
           git -C "$RUNNER_TEMP/coding-tooling" checkout --detach "$CODING_TOOLING_REVISION"
           test "$(git -C "$RUNNER_TEMP/coding-tooling" rev-parse HEAD)" = "$CODING_TOOLING_REVISION"
-      - name: Verify deterministic foundation
+      - name: Verify installed convention snapshot
         run: |
           mkdir -p .artifacts/coding-tooling
           set +e
-          bun "$RUNNER_TEMP/coding-tooling/src/cli.ts" conformance --json > .artifacts/coding-tooling/conformance.json
+          bun "$RUNNER_TEMP/coding-tooling/src/cli.ts" conventions check --json > .artifacts/coding-tooling/conventions.json
           status=$?
           set -e
-          cat .artifacts/coding-tooling/conformance.json
+          cat .artifacts/coding-tooling/conventions.json
           exit "$status"
       - name: Validate capability sources
         run: bun "$RUNNER_TEMP/coding-tooling/src/cli.ts" agent-capabilities validate . --json
