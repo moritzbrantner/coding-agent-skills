@@ -56,9 +56,10 @@ They do **not** own shared code policy. `coding-agent-conventions` answers what 
 
 ## Provisional skills
 
-Provisional skills are discoverable but are not enabled by the stable `minimal` or `standard` profiles until their procedure has been exercised and deliberately promoted.
+Provisional skills are discoverable for explicit use but are not enabled by the stable `minimal` or `standard` automatic-use profiles until their procedure has been exercised and deliberately promoted.
 
 - `capability-internalization` — evaluate whether an external capability should remain external, gain a stable boundary, or be replaced by a smaller specialized implementation using parity, performance, and real-consumer evidence.
+- `repository-convergence` — improve one repository-owned seam at a time from a real deterministic or independently substantiated finding, then verify the exact candidate head without turning heuristic scores into policy.
 
 Removed from the initial catalog: `research`, `characterize-feature`, `grill-me`, general `handoff`, setup-as-a-skill, and peripheral helper skills.
 
@@ -88,13 +89,13 @@ A repository's `conventions.lock.json` records which shared policy revision was 
 
 ## Validate
 
-Run:
+Run the canonical deterministic tier:
 
 ```bash
-scripts/validate-capabilities
+coding-tooling run --tier default
 ```
 
-The command delegates to `coding-tooling`; this repository intentionally does not duplicate its parser/validator.
+The tier delegates `package:check` to `scripts/validate-capabilities`. This repository intentionally does not duplicate the `coding-tooling` parser/validator.
 
 ## Landscape boundaries
 

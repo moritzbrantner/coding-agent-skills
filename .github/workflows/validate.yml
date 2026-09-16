@@ -36,6 +36,21 @@ jobs:
           git clone --filter=blob:none --no-checkout https://github.com/moritzbrantner/coding-tooling.git "$RUNNER_TEMP/coding-tooling"
           git -C "$RUNNER_TEMP/coding-tooling" checkout --detach "$CODING_TOOLING_REVISION"
           test "$(git -C "$RUNNER_TEMP/coding-tooling" rev-parse HEAD)" = "$CODING_TOOLING_REVISION"
+      - name: Regenerate convention snapshot for cleanup evidence
+        env:
+          CONVENTIONS_REVISION: 6a50bc1464c73ceb1b92d34ef543fe702f506080
+        run: |
+          git clone --filter=blob:none --no-checkout https://github.com/moritzbrantner/coding-agent-conventions.git "$RUNNER_TEMP/coding-agent-conventions"
+          git -C "$RUNNER_TEMP/coding-agent-conventions" checkout --detach "$CONVENTIONS_REVISION"
+          test "$(git -C "$RUNNER_TEMP/coding-agent-conventions" rev-parse HEAD)" = "$CONVENTIONS_REVISION"
+          bun "$RUNNER_TEMP/coding-tooling/src/cli.ts" conventions update --conventions-root "$RUNNER_TEMP/coding-agent-conventions" --json
+          git diff -- .conventions conventions.lock.json
+          git diff --exit-code -- .conventions conventions.lock.json
+      - name: Verify deterministic foundation
+        run: |
+          mkdir -p .artifacts/coding-tooling
+          bun "$RUNNER_TEMP/coding-tooling/src/cli.ts" conformance --json > .artifacts/coding-tooling/conformance.json
+          cat .artifacts/coding-tooling/conformance.json
       - name: Validate capability sources
         run: bun "$RUNNER_TEMP/coding-tooling/src/cli.ts" agent-capabilities validate . --json
       - name: Inspect deterministic repository findings
