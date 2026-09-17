@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:agent-contracts:diagnosis-envelope:v1",
+  "title": "Diagnosis Envelope v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "diagnosisId",
+    "kind",
+    "confidence",
+    "summary",
+    "evidence",
+    "artifacts",
+    "payload"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "diagnosisId": { "type": "string", "minLength": 1 },
+    "kind": { "enum": ["bug", "performance"] },
+    "confidence": { "enum": ["confirmed", "probable", "unresolved"] },
+    "summary": { "type": "string", "minLength": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "reference"],
+        "properties": {
+          "kind": { "type": "string", "minLength": 1 },
+          "reference": { "type": "string", "minLength": 1 },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "reference", "disposition"],
+        "properties": {
+          "kind": { "type": "string", "minLength": 1 },
+          "reference": { "type": "string", "minLength": 1 },
+          "disposition": { "enum": ["temporary", "handoff", "retained"] },
+          "note": { "type": "string" }
+        }
+      }
+    },
+    "payload": {
+      "oneOf": [
+        { "$ref": "#/$defs/bugPayload" },
+        { "$ref": "#/$defs/performancePayload" }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "bug" } }, "required": ["kind"] },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/bugPayload" } } }
+    },
+    {
+      "if": { "properties": { "kind": { "const": "performance" } }, "required": ["kind"] },
+      "then": { "properties": { "payload": { "$ref": "#/$defs/performancePayload" } } }
+    }
+  ],
+  "$defs": {
+    "bugPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "symptom", "reproducer", "minimizedCase", "causeHypothesis"],
+      "properties": {
+        "type": { "const": "bug" },
+        "symptom": { "type": "string", "minLength": 1 },
+        "reproducer": { "type": "string", "minLength": 1 },
+        "minimizedCase": { "type": "string", "minLength": 1 },
+        "causeHypothesis": { "type": "string", "minLength": 1 },
+        "affectedSurface": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$",
+          "description": "Optional normalized lowercase kebab-case surface hint for deterministic follow-up verification. `browser` is the reserved value for behavior that requires real-browser verification; consumers must tolerate other normalized values."
+        },
+        "candidateRepairDirections": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "performancePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "scenario",
+        "baseline",
+        "bottlenecks",
+        "constraints",
+        "candidateOptimizationDirections"
+      ],
+      "properties": {
+        "type": { "const": "performance" },
+        "scenario": { "type": "string", "minLength": 1 },
+        "baseline": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["metric", "value", "unit", "method"],
+          "properties": {
+            "metric": { "type": "string", "minLength": 1 },
+            "value": { "type": "number" },
+            "unit": { "type": "string", "minLength": 1 },
+            "method": { "type": "string", "minLength": 1 }
+          }
+        },
+        "bottlenecks": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "constraints": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "candidateOptimizationDirections": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "actionable": {
+          "type": "boolean",
+          "description": "Whether the evidence supports a specific optimization path without first revising the workload or constraints."
+        },
+        "causeCategory": {
+          "enum": [
+            "local-implementation",
+            "algorithm-data-model",
+            "architecture-data-movement",
+            "external-environment",
+            "unresolved"
+          ],
+          "description": "Dominant measured cause level used by consumers to route follow-up work without reinterpreting free-form diagnosis prose."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "actionable": { "const": true } },
+            "required": ["actionable"]
+          },
+          "then": {
+            "required": ["causeCategory"],
+            "properties": {
+              "candidateOptimizationDirections": { "minItems": 1 }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
