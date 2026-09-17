@@ -9,7 +9,24 @@ intents: ["performance", "profile", "diagnose"]
 requires: []
 related-to: ["general/optimize-performance", "general/refactor", "general/architecture-review", "general/codebase-design"]
 readiness: []
-extensions: {}
+extensions:
+  agent.procedure:
+    schemaVersion: 1
+    routing:
+      useWhen: ["A performance symptom needs a reproducible workload, measured baseline, bottleneck evidence, and dominant-cause classification before optimization."]
+      doNotUseWhen: ["A trusted performance diagnosis already provides an actionable owned-code cause and the task is to implement and remeasure the optimization.", "The primary problem is incorrect behavior rather than measured performance."]
+      mutates: true
+      approvalBoundary: "none"
+    termination:
+      terminal: true
+      doneWhen: ["The performance diagnosis records the representative scenario, measured baseline, bottlenecks, constraints, candidate directions, actionability, dominant cause category, and enough method detail to repeat the measurement."]
+      stopWithoutChangeWhen: ["Existing profiling evidence is sufficient and no instrumentation or benchmark scaffold needs to be added.", "The dominant cause is external/environmental or remains unresolved, so no owned code optimization is justified by the current evidence."]
+      escalateWhen: ["The representative workload, success metric, or acceptable tradeoff depends on unresolved human intent."]
+      evidenceRequired: ["A reproducible scenario, measured baseline, dominant bottleneck evidence, tested cause hypotheses, and explicit uncertainty are preserved."]
+      outOfScope: ["Implementing the optimization.", "Claiming a speedup from code or architecture shape without remeasurement."]
+    artifacts:
+      consumes: ["request-context", "repository-state", "runtime-evidence"]
+      produces: ["performance-diagnosis", "performance-evidence"]
 ---
 
 # Diagnosing Performance
