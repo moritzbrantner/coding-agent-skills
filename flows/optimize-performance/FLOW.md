@@ -258,7 +258,24 @@ flow:
                   kind: human-gate
                   prompt: "The second diagnosis is still not actionable. Stop without optimizing or take the problem back to a new outer investigation."
           else: []
-extensions: {}
+extensions:
+  agent.procedure:
+    schemaVersion: 1
+    routing:
+      useWhen: ["A performance problem needs an owned optimization path from measured diagnosis through implementation, correctness verification, identical-scenario remeasurement, and review."]
+      doNotUseWhen: ["The request asks only for diagnosis or baseline evidence without changing code.", "The dominant cause is known to be external/environmental and no owned code optimization is justified."]
+      mutates: true
+      approvalBoundary: "conditional"
+    termination:
+      terminal: true
+      doneWhen: ["An actionable owned-code diagnosis is routed to the correct local, algorithm/data-model, or architecture path and the resulting candidate is verified, remeasured against the same scenario, and reviewed; or the bounded non-actionable path stops without optimization."]
+      stopWithoutChangeWhen: ["The diagnosis is non-actionable and the human chooses not to revise the workload or constraints.", "The second bounded diagnosis remains non-actionable.", "The diagnosis points to an external/environmental or unsupported cause rather than an owned code optimization."]
+      escalateWhen: ["A consequential architecture/data-movement optimization requires explicit human approval before mutation.", "The representative workload or acceptable performance/correctness tradeoff depends on unresolved human intent.", "Verification or final review leaves blocking findings after the bounded optimization pass."]
+      evidenceRequired: ["The before baseline, diagnosis routing metadata, repository correctness verification, identical-scenario after measurement, and independent review evidence are preserved for any applied optimization."]
+      outOfScope: ["Claiming success without remeasurement.", "Unbounded retries after a second non-actionable diagnosis.", "Treating external/environmental costs as local code refactors."]
+    artifacts:
+      consumes: ["request-context", "repository-state", "runtime-evidence"]
+      produces: ["performance-diagnosis", "optimized-change", "verification-evidence", "performance-comparison", "review-findings"]
 ---
 
 # Optimize Performance
