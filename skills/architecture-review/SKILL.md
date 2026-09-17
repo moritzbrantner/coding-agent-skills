@@ -9,7 +9,24 @@ intents: ["architecture", "review", "design"]
 requires: []
 related-to: ["general/codebase-design", "general/improve-codebase-architecture", "general/diagnosing-performance"]
 readiness: []
-extensions: {}
+extensions:
+  agent.procedure:
+    schemaVersion: 1
+    routing:
+      useWhen: ["The task needs a read-only assessment of existing architecture, ownership, coupling, or cost topology."]
+      doNotUseWhen: ["The task is to design a solution to an already-established architecture problem.", "An architecture design is already approved and the task is to implement it."]
+      mutates: false
+      approvalBoundary: "none"
+    termination:
+      terminal: true
+      doneWhen: ["Material architecture findings are reported with evidence and consequence, or the review establishes that no material finding is supported."]
+      stopWithoutChangeWhen: ["The inspected evidence does not support a material architecture finding."]
+      escalateWhen: ["A consequential conclusion depends on unresolved product or domain intent.", "Repository guidance and implementation disagree and available evidence cannot establish the intended boundary."]
+      evidenceRequired: ["Relevant module boundaries, dependencies, state ownership, repository guidance, and applicable cost topology were inspected."]
+      outOfScope: ["Choosing a consequential target architecture without a design exercise.", "Implementing or migrating architecture changes."]
+    artifacts:
+      consumes: ["repository-state", "installed-policy", "architecture-context"]
+      produces: ["architecture-findings"]
 ---
 
 # Architecture Review
