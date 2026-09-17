@@ -22,10 +22,7 @@ flow:
       condition:
         source: "diagnosis.confidence"
         equals: "unresolved"
-      then:
-        - id: stop-unresolved
-          kind: human-gate
-          prompt: "The diagnosis remains unresolved, so this flow will stop without changing behavior. Resolve any genuinely missing intended-behavior input or gather stronger evidence in a new outer investigation before retrying the fix."
+      then: []
       else:
         - id: red-green-fix
           kind: invoke
@@ -67,12 +64,12 @@ extensions:
       useWhen: ["A correctness bug needs both evidence-backed diagnosis and an owned repository repair through red-to-green verification."]
       doNotUseWhen: ["The request asks only for diagnosis without a fix.", "A trusted diagnosis is explicitly unresolved or the primary problem is performance rather than incorrect behavior."]
       mutates: true
-      approvalBoundary: "conditional"
+      approvalBoundary: "none"
     termination:
       terminal: true
-      doneWhen: ["A resolved diagnosis is repaired through a regression red-to-green transition, cleanup, required browser verification when applicable, repository verification, and final review; or an unresolved diagnosis stops before behavior changes."]
+      doneWhen: ["A resolved diagnosis is repaired through a regression red-to-green transition, cleanup, required browser verification when applicable, repository verification, and final review; or an unresolved diagnosis stops immediately after diagnosis before behavior changes."]
       stopWithoutChangeWhen: ["The diagnosis confidence is `unresolved`.", "The evidence indicates that a new outer investigation is required before a safe repair can be selected."]
-      escalateWhen: ["The unresolved diagnosis depends on genuinely missing human intent or external facts.", "Verification or final review leaves blocking findings after the bounded repair pass."]
+      escalateWhen: ["The unresolved diagnosis depends on genuinely missing human intent or external facts that a later outer invocation must obtain.", "Verification or final review leaves blocking findings after the bounded repair pass."]
       evidenceRequired: ["The diagnosis envelope, regression evidence, repository verification, and final review are available for an applied repair; browser evidence is also available when `payload.affectedSurface` is `browser`."]
       outOfScope: ["Guessing a fix from an unresolved diagnosis.", "Retry loops or durable remediation scheduling after the bounded pass."]
     artifacts:
@@ -84,7 +81,7 @@ extensions:
 
 The diagnostic skill may hand over a failing reproducer/test, but this flow decides whether it becomes permanent and owns the actual red-to-green transition.
 
-The shared diagnosis confidence values are `confirmed`, `probable`, and `unresolved`. An `unresolved` diagnosis is a fail-closed terminal path for this invocation: do not mutate behavior from a guessed cause. If genuinely missing intended behavior or an external fact is the blocker, resolve that outside this bounded fix flow and start a new diagnosis/fix attempt with stronger evidence.
+The shared diagnosis confidence values are `confirmed`, `probable`, and `unresolved`. An `unresolved` diagnosis is a fail-closed terminal path for this invocation: the branch ends immediately after diagnosis and does not mutate behavior. If genuinely missing intended behavior or an external fact is the blocker, resolve that outside this bounded fix flow and start a new diagnosis/fix attempt with stronger evidence.
 
 Resolved browser-visible diagnoses use `payload.affectedSurface: browser`, which makes the executable flow invoke `general/browser-investigation` after the fix/refactor and before repository verification. Interactive browser evidence supplements rather than replaces the durable regression test owned by the TDD step.
 
