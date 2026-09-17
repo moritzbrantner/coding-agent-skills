@@ -9,7 +9,24 @@ intents: ["design", "architecture", "modules"]
 requires: []
 related-to: ["general/architecture-review", "general/improve-codebase-architecture", "general/domain-modeling"]
 readiness: []
-extensions: {}
+extensions:
+  agent.procedure:
+    schemaVersion: 1
+    routing:
+      useWhen: ["A concrete architecture or module-boundary problem is established and viable target structures need to be compared."]
+      doNotUseWhen: ["The task is only to determine whether an architecture problem exists.", "A target design is already approved and only implementation remains."]
+      mutates: false
+      approvalBoundary: "none"
+    termination:
+      terminal: true
+      doneWhen: ["Plausible designs and tradeoffs have been compared and the smallest justified design is identified."]
+      stopWithoutChangeWhen: ["The current design already satisfies the established need and no consequential redesign is justified."]
+      escalateWhen: ["The preferred design depends on unresolved product, domain, compatibility, or operational intent."]
+      evidenceRequired: ["The established behavior and ownership problem, repository policy, relevant constraints, and consequential alternatives were considered."]
+      outOfScope: ["Implementing the selected design.", "Inventing a redesign without an established boundary problem."]
+    artifacts:
+      consumes: ["repository-state", "installed-policy", "architecture-findings"]
+      produces: ["design-proposal"]
 ---
 
 # Codebase Design
