@@ -11,7 +11,24 @@ related-to: ["general/intake-assessment", "general/implement", "general/continue
 readiness:
   - predicate: "tool-available"
     tool: "coding-tooling"
-extensions: {}
+extensions:
+  agent.procedure:
+    schemaVersion: 1
+    routing:
+      useWhen: ["One implementation slice has already been selected or approved and needs an exact-baseline, machine-validated execution packet for another run or later continuation."]
+      doNotUseWhen: ["The next slice has not yet been selected.", "The task is still ambiguous enough that scope or intended behavior must be resolved first."]
+      mutates: true
+      approvalBoundary: "none"
+    termination:
+      terminal: true
+      doneWhen: ["Exactly one bounded task packet is written to ignored artifact storage and validates successfully against the exact baseline, preservation constraints, out-of-scope boundaries, derived capabilities, and semantic review requirements."]
+      stopWithoutChangeWhen: ["The exact baseline cannot be established.", "Required task facts are missing and cannot be discovered without guessing."]
+      escalateWhen: ["A necessary preservation, scope, architecture, testing, or behavior decision depends on unresolved human intent."]
+      evidenceRequired: ["The selected slice, immutable baseline SHA, repository policy, preservation constraints, out-of-scope work, risk classification, and validation result are available."]
+      outOfScope: ["Selecting a different next slice.", "Implementing the packet.", "Committing the packet or turning it into durable queue state."]
+    artifacts:
+      consumes: ["approved-implementation-slice", "repository-state", "installed-policy"]
+      produces: ["task-packet"]
 ---
 
 # Prepare Task Packet
