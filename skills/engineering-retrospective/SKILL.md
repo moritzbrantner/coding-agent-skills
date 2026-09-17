@@ -22,10 +22,10 @@ extensions:
       doneWhen: ["The retrospective identifies the direct cause, why detection or correction was delayed, earlier signals that were missed or unavailable, evidence and confidence, and the smallest owning layer for each justified prevention improvement; it may explicitly conclude that no systemic change is warranted."]
       stopWithoutChangeWhen: ["The evidence supports a one-off local defect whose existing repair and tests are sufficient and no reusable prevention improvement is justified."]
       escalateWhen: ["The prevention choice depends on consequential architecture, policy, product, or domain intent that evidence cannot settle.", "The owner of the prevention improvement remains ambiguous after inspecting the relevant repository and landscape boundaries."]
-      evidenceRequired: ["Relevant diagnosis, implementation or review history, CI/verification attempts, exact candidate evidence, traces or profiles when applicable, and available task/handoff context are inspected; direct evidence is distinguished from inference."]
-      outOfScope: ["Implementing the prevention changes.", "Creating durable backlog, queue, or run-history state.", "Inventing a convention or deterministic gate from a single non-generalizable incident.", "Reassigning ownership merely to make the retrospective produce an action item."]
+      evidenceRequired: ["Relevant diagnosis, implementation or review history, CI/verification attempts, exact candidate evidence, traces or profiles when applicable, correlated agent-run Performance Evidence when available, and available task/handoff context are inspected; direct evidence is distinguished from inference."]
+      outOfScope: ["Implementing the prevention changes.", "Creating durable backlog, queue, or run-history state.", "Inventing a convention or deterministic gate from a single non-generalizable incident.", "Reassigning ownership merely to make the retrospective produce an action item.", "Collapsing agent effort into a productivity score or ranking people, models, or providers from incomparable workloads."]
     artifacts:
-      consumes: ["engineering-incident-evidence", "diagnosis-envelope", "review-findings", "verification-evidence"]
+      consumes: ["engineering-incident-evidence", "diagnosis-envelope", "review-findings", "verification-evidence", "performance-evidence"]
       produces: ["retrospective-findings", "prevention-routing"]
 ---
 
@@ -47,7 +47,9 @@ Reconstruct only the evidence needed to explain the incident:
 - when decisive evidence first existed versus when it was actually used;
 - assumptions, missing observability, misleading green checks, authority confusion, stale evidence, or task decomposition choices that materially delayed convergence.
 
-Prefer exact commits, PR heads, check results, profiles, traces, diagnosis envelopes, review findings, task packets, and handoff receipts when available. Do not infer a process failure merely because the repair was difficult.
+Prefer exact commits, PR heads, check results, profiles, traces, diagnosis envelopes, review findings, task packets, handoff receipts, and canonical Performance Evidence when available. Do not infer a process failure merely because the repair was difficult.
+
+When agent-run Performance Evidence is available, correlate records by the producer-owned run/attempt identity and exact source/candidate provenance rather than by timestamps or filenames. Useful evidence can include invocation/retry counts, execution time, deterministic time-to-green, CI/tool/wait spans, token categories, escalation stage, and whether a candidate was produced. Treat missing telemetry as unknown rather than zero.
 
 ## Separate cause from detection delay
 
@@ -59,6 +61,20 @@ Report at least these two layers independently:
 A local bug can have a systemic detection gap; an architectural performance problem can also have been caught promptly. Do not collapse these questions.
 
 Identify the earliest realistic point where the class of problem could have been caught with information that was actually available then. A hindsight-only signal is not a prevention mechanism.
+
+## Use agent-cost evidence without inventing a productivity metric
+
+Agent timing, tokens, retries, CI wait, and escalation evidence can make a retrospective more precise, but these measurements are explanatory signals, not a single score.
+
+Use correlated evidence to test concrete hypotheses such as:
+
+- repeated local optimization attempts consumed substantial work before architecture/data-movement evidence was inspected;
+- one CI lane dominated wait time while contributing no distinct failure signal;
+- repeated retries were caused by stale or incomplete exact-head evidence rather than implementation difficulty;
+- escalation to a stronger procedure or local execution loop happened later than the available evidence justified;
+- architecture-oriented diagnosis cost more up front but materially reduced later retries under comparable workloads.
+
+Compare agent cost only when workload identity, source/candidate provenance, environment, and relevant execution semantics are sufficiently comparable. Keep provider/model identity as context when it materially affects execution, not as a reason to rank models from unrelated tasks. Never infer human productivity or engineering quality from token count or elapsed time alone.
 
 ## Route prevention to the owning layer
 
@@ -76,9 +92,13 @@ Classify each justified prevention recommendation under the smallest layer that 
 
 Do not copy a recommendation into multiple layers merely to appear comprehensive. Pick the lowest coherent owner first; add another layer only when it addresses a distinct reusable failure mechanism.
 
+For agent-landscape findings, preserve the same boundary discipline. A recurring late architecture escalation belongs in a skill/procedure; a mechanically detectable missing receipt belongs in tooling; run/attempt coordination belongs in the orchestrator; portable measurement semantics belong in `performance-evidence`; cross-component interchange belongs in `agent-contracts`; artifact preservation belongs in reusable workflows. Do not move semantics into a transport layer because the retrospective observed them there.
+
 ## Require generalization evidence
 
 Before recommending a new shared convention, deterministic gate, procedure rule, or orchestration feature, state why the incident generalizes beyond the single repair. Useful evidence includes recurrence across repositories/tasks, a structurally repeatable failure mode, a high-cost invariant that is cheap to mechanize, or an existing class of near misses.
+
+Correlated Performance Evidence can strengthen this generalization case when the same costly pattern recurs across comparable attempts. One expensive run is not enough to prove a landscape rule. Prefer several attributable examples, or a deterministic structural invariant, before changing shared procedure or policy.
 
 If the incident is a one-off local defect and the repair plus focused regression evidence is sufficient, say so and stop. “No new systemic mechanism justified” is a successful retrospective outcome.
 
@@ -91,6 +111,7 @@ Return a compact retrospective containing:
 - incident and direct cause;
 - detection/correction delay and missed earlier signals;
 - evidence timeline with confidence and uncertainty;
+- relevant correlated agent-run cost evidence when it materially explains the delay or prevention opportunity;
 - prevention recommendations, each with owning layer and why that layer is authoritative;
 - recommendations explicitly rejected as overreach, when relevant;
 - whether the incident indicates a local-only repair or a reusable landscape improvement;
