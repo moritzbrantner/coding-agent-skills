@@ -9,7 +9,24 @@ intents: ["browser", "web", "ui", "investigate"]
 requires: []
 related-to: ["general/diagnosing-bugs", "general/fix-bug", "general/implement", "general/code-review"]
 readiness: []
-extensions: {}
+extensions:
+  agent.procedure:
+    schemaVersion: 1
+    routing:
+      useWhen: ["Expected or observed behavior materially depends on real browser semantics, or a resolved diagnosis explicitly requires browser-boundary verification."]
+      doNotUseWhen: ["The behavior can be established completely below the browser boundary and browser execution would add no material evidence."]
+      mutates: true
+      approvalBoundary: "none"
+    termination:
+      terminal: true
+      doneWhen: ["The smallest trustworthy browser path has been exercised, material semantic evidence has been captured, durable regression evidence has been created when appropriate, and the investigation session is closed unless an outer caller owns it."]
+      stopWithoutChangeWhen: ["Browser evidence disproves the product-code hypothesis or establishes that the observed failure is caused by a non-faithful test double or environment boundary.", "The requested browser verification cannot run and the limitation is reported without pretending verification occurred."]
+      escalateWhen: ["Expected browser behavior depends on unresolved human intent.", "Required authentication or sensitive state cannot be obtained within the caller's authority."]
+      evidenceRequired: ["The browser-visible state and only the relevant semantic, console, network, or trace evidence needed to support the conclusion are recorded."]
+      outOfScope: ["Integrating an unrelated product fix merely because a browser symptom is visible.", "Treating screenshots alone as a durable regression gate when semantic automation is available."]
+    artifacts:
+      consumes: ["request-context", "repository-state", "diagnosis-envelope"]
+      produces: ["browser-evidence", "regression-test-evidence"]
 ---
 
 # Browser Investigation
