@@ -31,7 +31,7 @@ jobs:
           test "$($install_dir/bun-linux-x64/bun --version)" = "$BUN_VERSION"
       - name: Fetch accepted coding-tooling revision
         env:
-          CODING_TOOLING_REVISION: 93f46bf2545e4a7f1b75ec0797ad087bbea9a512
+          CODING_TOOLING_REVISION: 4c28a71774b2dc98afe44d50b54cb145c5943b78
         run: |
           git clone --filter=blob:none --no-checkout https://github.com/moritzbrantner/coding-tooling.git "$RUNNER_TEMP/coding-tooling"
           git -C "$RUNNER_TEMP/coding-tooling" checkout --detach "$CODING_TOOLING_REVISION"

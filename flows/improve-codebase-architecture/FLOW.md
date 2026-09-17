@@ -39,7 +39,24 @@ flow:
       kind: invoke
       capability: "general/code-review"
       output: "review-findings"
-extensions: {}
+extensions:
+  agent.procedure:
+    schemaVersion: 1
+    routing:
+      useWhen: ["The task asks to change consequential architecture or module boundaries rather than only assess or design them."]
+      doNotUseWhen: ["The request only needs a read-only architecture assessment.", "The target architecture is not yet sufficiently understood to propose a consequential change."]
+      mutates: true
+      approvalBoundary: "required"
+    termination:
+      terminal: true
+      doneWhen: ["An approved architecture design is implemented, repository verification passes, and the resulting candidate is reviewed."]
+      stopWithoutChangeWhen: ["Architecture review or design establishes that no material change is justified.", "The human does not approve the consequential design."]
+      escalateWhen: ["Repository verification or final review leaves blocking findings after the bounded implementation pass."]
+      evidenceRequired: ["Architecture findings, a concrete design proposal, explicit human approval, repository verification, and final review evidence are available for the implemented change."]
+      outOfScope: ["Unapproved architecture migration.", "Durable migration scheduling, retries, or multi-worker orchestration."]
+    artifacts:
+      consumes: ["repository-state", "installed-policy"]
+      produces: ["architecture-findings", "design-proposal", "architecture-change-result", "verification-evidence", "review-findings"]
 ---
 
 # Improve Codebase Architecture
