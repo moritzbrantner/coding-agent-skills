@@ -60,6 +60,7 @@ Provisional skills are discoverable for explicit use but are not enabled by the 
 
 - `capability-internalization` — evaluate whether an external capability should remain external, gain a stable boundary, or be replaced by a smaller specialized implementation using parity, performance, and real-consumer evidence.
 - `repository-convergence` — improve one repository-owned seam at a time from a real deterministic or independently substantiated finding, then verify the exact candidate head without turning heuristic scores into policy.
+- `engineering-retrospective` — explain why an engineering problem survived as long as it did and route the smallest reusable prevention improvement to implementation, architecture, procedure, tooling, policy, observability, task decomposition, orchestration, or external infrastructure without manufacturing systemic work from every incident.
 
 Removed from the initial catalog: `research`, `characterize-feature`, `grill-me`, general `handoff`, setup-as-a-skill, and peripheral helper skills.
 
@@ -78,7 +79,9 @@ The strict interchange shape is defined by `agent-contracts`. Deterministic pars
 
 Source validation proves that a capability is well-formed; it does not prove that the procedure makes good engineering decisions. Behavioral cases under `evals/cases/` exercise consequential distinctions such as exact-head evidence, advisory-vs-blocking findings, authority boundaries, valid no-change outcomes, and architectural performance costs.
 
-Promotion from `provisional` to `stable` follows `docs/promotion.md`. Critical behavioral boundary violations block promotion even if other cases succeed; real-consumer dogfooding is also required.
+`coding-agent-skills` owns those scenarios and expected reasoning boundaries. `coding-tooling` owns deterministic case parsing/execution/reporting; do not add a second provider-specific evaluator here.
+
+See [`evals/README.md`](evals/README.md) for case shape and [`docs/promotion.md`](docs/promotion.md) for maturity criteria.
 
 ## Convention context
 
@@ -116,7 +119,7 @@ This repository intentionally does not duplicate the `coding-tooling` parser/val
 - `coding-agent-skills`: reusable reasoning skills, flows, profiles, behavioral cases, and source capability metadata.
 - `coding-agent-conventions`: shared engineering policy and registry vocabulary.
 - repository `AGENTS.md`: repository-specific context and exceptions.
-- `coding-tooling`: deterministic discovery, parsing, checks, evaluation execution, convention installation/integrity, and action mechanics.
+- `coding-tooling`: deterministic discovery, parsing, checks, convention installation/integrity, behavioral-evaluation execution, and action mechanics.
 - `agent-contracts`: cross-component contracts.
 - `agent-loop-orchestrator`: optional durable work state, scheduling, worktrees, retries, authority, candidates, receipts, and integration.
 - `agent-loop-setup`: machine-level bootstrap/environment integration.
