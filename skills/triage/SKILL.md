@@ -9,7 +9,24 @@ intents: ["triage", "classify", "issue"]
 requires: []
 related-to: ["general/intake-assessment", "general/diagnosing-bugs", "general/diagnosing-performance", "general/choose-workflow"]
 readiness: []
-extensions: {}
+extensions:
+  agent.procedure:
+    schemaVersion: 1
+    routing:
+      useWhen: ["An observed problem or work request needs evidence-based classification by scope, impact, reproducibility, and next-needed reasoning."]
+      doNotUseWhen: ["The request is still too ambiguous to establish what is observed.", "A root cause is already established and the task is to implement the repair."]
+      mutates: false
+      approvalBoundary: "none"
+    termination:
+      terminal: true
+      doneWhen: ["The observed condition is classified with scope, impact, confidence, and the smallest appropriate next capability or human decision."]
+      stopWithoutChangeWhen: ["Available evidence does not establish a defect or actionable work item beyond recording the observed condition."]
+      escalateWhen: ["Severity is material but evidence is insufficient to classify the condition safely.", "The next step depends on unresolved human intent rather than further technical evidence."]
+      evidenceRequired: ["Observed behavior, affected scope, impact, reproducibility, and available repository or runtime evidence were distinguished from hypotheses."]
+      outOfScope: ["Implementing a fix.", "Creating durable issue-tracker or queue state merely to classify work."]
+    artifacts:
+      consumes: ["request-context", "repository-state", "runtime-evidence"]
+      produces: ["triage-result"]
 ---
 
 # Triage
