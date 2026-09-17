@@ -11,7 +11,24 @@ related-to: ["general/prepare-handoff", "general/review-and-fix", "general/code-
 readiness:
   - predicate: "tool-available"
     tool: "coding-tooling"
-extensions: {}
+extensions:
+  agent.procedure:
+    schemaVersion: 1
+    routing:
+      useWhen: ["A pull request is believed complete and the remaining question is whether the exact current candidate is integration-ready."]
+      doNotUseWhen: ["Implementation or review remediation is still actively changing the candidate.", "The task is to perform ordinary code review rather than a final exact-head integration decision."]
+      mutates: false
+      approvalBoundary: "none"
+    termination:
+      terminal: true
+      doneWhen: ["A fresh mechanical receipt and semantic review produce either an integration-ready decision bound to the exact head/base identities or a concrete blocking decision; the identities are re-resolved immediately before the result is returned."]
+      stopWithoutChangeWhen: ["Required checks are skipped, pending, failed, or unavailable.", "The PR is draft, unmergeable, has unresolved review threads or unintegrated stack dependencies, or the reviewed head/base moved.", "A semantic preservation, authority, compatibility, security, persistence, browser/mobile, or performance requirement remains unproved."]
+      escalateWhen: ["The candidate is integration-ready but the current caller lacks authority to integrate it.", "A semantic requirement depends on unresolved human product or domain intent."]
+      evidenceRequired: ["The exact PR head and base SHAs, fresh mechanical receipt, actual diff, repository policy, relevant task/handoff evidence, and resolved semantic review requirements are available."]
+      outOfScope: ["Implementing merge queues or VCS mutation.", "Repairing the candidate inside the final review.", "Caching a prior integration-ready decision after head, base, check, mergeability, stack, or review state changes."]
+    artifacts:
+      consumes: ["candidate-head", "repository-state", "task-packet", "handoff-receipt", "review-state"]
+      produces: ["integration-decision"]
 ---
 
 # Final Integration Review

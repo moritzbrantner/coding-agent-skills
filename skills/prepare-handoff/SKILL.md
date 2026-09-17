@@ -11,7 +11,24 @@ related-to: ["general/prepare-task-packet", "general/final-integration-review", 
 readiness:
   - predicate: "tool-available"
     tool: "coding-tooling"
-extensions: {}
+extensions:
+  agent.procedure:
+    schemaVersion: 1
+    routing:
+      useWhen: ["A bounded implementation is complete enough to transfer to another run, reviewer, or integration caller from exact-head evidence rather than conversational reconstruction."]
+      doNotUseWhen: ["The candidate is still being implemented or has an uncommitted working tree.", "The task packet or exact candidate identity is unavailable."]
+      mutates: true
+      approvalBoundary: "none"
+    termination:
+      terminal: true
+      doneWhen: ["Exact-head verification passes and a handoff receipt bound to the current candidate SHA and task-packet digest is generated, with unresolved deterministic findings and pending semantic review requirements surfaced to the caller."]
+      stopWithoutChangeWhen: ["The candidate working tree is dirty or uncommitted.", "Verification is failed, error, or unavailable.", "Candidate HEAD or task-packet identity moved and stale evidence must be discarded."]
+      escalateWhen: ["A pending semantic review requirement must be resolved before integration but cannot be settled by mechanical evidence."]
+      evidenceRequired: ["The validated task packet, exact candidate SHA, exact-head verification report, environment identity, and bound handoff receipt are available."]
+      outOfScope: ["Resolving semantic review requirements.", "Integrating or publishing the candidate.", "Persisting run history or durable continuation state."]
+    artifacts:
+      consumes: ["task-packet", "candidate-head", "repository-state"]
+      produces: ["verification-evidence", "handoff-receipt"]
 ---
 
 # Prepare Handoff

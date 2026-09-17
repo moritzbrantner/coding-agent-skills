@@ -11,7 +11,24 @@ related-to: ["general/architecture-review", "general/final-integration-review", 
 readiness:
   - predicate: "tool-available"
     tool: "coding-tooling"
-extensions: {}
+extensions:
+  agent.procedure:
+    schemaVersion: 1
+    routing:
+      useWhen: ["A proposed or implemented change crosses repository-owned capabilities and needs review of dependency direction, semantic authority, adapters, prohibited write-back, or exact source-development revisions."]
+      doNotUseWhen: ["The change is entirely repository-local and no cross-repository authority or dependency boundary is implicated."]
+      mutates: false
+      approvalBoundary: "none"
+    termination:
+      terminal: true
+      doneWhen: ["The participating repositories, exact revisions, ownership boundaries, dependency direction, adapters, prohibited write-back, and preservation constraints are either verified or reported as concrete blockers, and the relevant constraints are ready to carry into task/integration evidence."]
+      stopWithoutChangeWhen: ["The deterministic authority graph fails or exact source revisions are unavailable/drifted.", "The required source graph keeps expanding beyond the bounded ownership/contract change and must be reclassified as architecture or migration work."]
+      escalateWhen: ["A real semantic boundary lacks an authoritative declaration and repository evidence cannot settle the owner.", "The required ownership change depends on unresolved architecture or domain intent."]
+      evidenceRequired: ["The fleet authority graph, participating repositories' authority guidance, dependency edges, exact source-development revisions, and implicated semantic contracts are inspected."]
+      outOfScope: ["Creating a second dependency graph.", "Overriding repository-local authority declarations in prose.", "Recursively repairing unrelated repositories to make a widening source graph pass."]
+    artifacts:
+      consumes: ["repository-state", "fleet-authority-graph", "source-revision-evidence"]
+      produces: ["cross-repository-boundary-findings", "authority-preservation-constraints"]
 ---
 
 # Cross-Repository Boundary Review
