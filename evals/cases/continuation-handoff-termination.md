@@ -23,7 +23,7 @@ Advance existing repository work without turning one continuation request into a
 - `continue-next-slice` uses exactly the deterministic selected candidate and stops after handing that single slice to the appropriate next capability; it does not select the next roadmap item in the same invocation.
 - `prepare-task-packet` records an immutable baseline SHA and validates one packet; it never records `HEAD` or a moving branch as the baseline.
 - `prepare-handoff` binds verification and handoff evidence to the exact candidate and packet digest; moved candidate or packet state invalidates stale receipts.
-- `final-integration-review` discards stale integration evidence after the candidate moves, re-resolves head/base, and requires a fresh passing mechanical receipt plus semantic review before returning an integration-ready decision.
+- `final-integration-review` reads the current GitHub checks and review state after the candidate moves, and performs semantic review before returning an integration-ready decision. It does not run duplicate mechanical receipts.
 - `cross-repository-boundary-review` verifies the exact source-development revision and authority/dependency direction for the second repository; widening graph drift is a blocker rather than a reason to approximate source state.
 - Ephemeral packets and receipts stay under ignored artifact storage and are not promoted into durable queues or run-history state.
 
