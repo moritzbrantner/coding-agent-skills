@@ -20,7 +20,6 @@ capabilities = [
   "general/choose-workflow",
   "general/prepare-task-packet",
   "general/continue-next-slice",
-  "general/prepare-handoff",
   "general/final-integration-review",
   "general/cross-repository-boundary-review",
 ]
