@@ -55,7 +55,7 @@ extensions:
       evidenceRequired: ["Architecture findings, a concrete design proposal, explicit human approval, repository verification, and final review evidence are available for the implemented change."]
       outOfScope: ["Unapproved architecture migration.", "Durable migration scheduling, retries, or multi-worker orchestration."]
     artifacts:
-      consumes: ["repository-state", "installed-policy"]
+      consumes: ["repository-state", "resolved-policy-context"]
       produces: ["architecture-findings", "design-proposal", "architecture-change-result", "verification-evidence", "review-findings"]
 ---
 

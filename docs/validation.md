@@ -8,13 +8,13 @@ Local capability validation is:
 scripts/validate-capabilities
 ```
 
-When `coding-tooling` is available, verify the installed convention snapshot independently with:
+When `coding-tooling` is available, check managed convention-cache integrity independently with:
 
 ```bash
 coding-tooling conventions check
 ```
 
-`conventions.json`, `conventions.lock.json`, and `.conventions/` form the installed policy snapshot. Ordinary validation must not silently replace that committed snapshot with live policy.
+`conventions.json`, `conventions.lock.json`, and `.conventions/` describe module selection and managed cache state. Integrity evidence does not establish current policy authority; use the task’s [resolved policy context](policy-context.md) for implementation and review.
 
 `.coding-tooling.json` declares the intended repository-level `package:check` tier. Current `coding-tooling` component discovery only creates package, Rust, and .NET components, so executing that root-level tier in a Markdown/Shell repository is not yet a valid completion gate. That tooling gap is tracked as `coding-tooling#233`; do not add a fake language/package manifest merely to satisfy discovery.
 

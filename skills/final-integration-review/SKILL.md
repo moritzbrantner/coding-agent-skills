@@ -34,7 +34,7 @@ extensions:
 Use this when a pull request is believed complete and the remaining question is whether it may be integrated.
 
 1. Read the current pull request, its actual diff, required GitHub checks, mergeability, review threads, and any declared stack dependencies. Trust GitHub's current check status; do not launch another exact-head verification or runner-identity check.
-2. Read the repository `AGENTS.md`, installed conventions, and relevant task context. Review authority boundaries, preservation requirements, compatibility, persistence, protocol, security, browser/mobile behavior, and performance claims implicated by the change. Require representative evidence for material claims.
+2. Reuse the task’s [resolved policy context](../../docs/policy-context.md) and relevant task context. Review authority boundaries, preservation requirements, compatibility, persistence, protocol, security, browser/mobile behavior, and performance claims implicated by the change. Require representative evidence for material claims.
 3. Resolve real review findings. After a repair, inspect the changed concern and the normal CI result. Do not infer that an outdated thread has been resolved merely because its line moved.
 4. Before integration, use GitHub's current mergeability and required-check result. A merge precondition may guard against concurrent head movement; it does not require rerunning validation.
 5. Return the integration decision and any blockers. If the caller has authority to integrate, use the repository's existing merge mechanism without asking again.

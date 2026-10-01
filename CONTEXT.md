@@ -17,4 +17,4 @@
 
 General skills never depend on Agent Loop. Agent-loop-specific wrappers may depend inward on these capabilities and map their results to task packets, evidence, receipts, or runtime state.
 
-`coding-agent-conventions` is authoritative for installed engineering policy. Skills contain minimal fallback defaults only so they remain independently usable.
+`coding-agent-conventions` owns engineering policy. Skills reuse the task’s [resolved policy context](docs/policy-context.md) and report limitations without presenting fallback judgments as shared-policy conformance.
