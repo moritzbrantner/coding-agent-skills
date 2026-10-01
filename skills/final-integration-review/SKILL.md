@@ -1,31 +1,29 @@
 ---
 id: "general/final-integration-review"
 name: "final-integration-review"
-description: "Perform the final exact-head semantic and mechanical review of a pull request and hand an approved candidate to existing integration mechanics."
+description: "Review a pull request's code, CI result, and merge blockers before integration."
 kind: "skill"
 maturity: "stable"
 entry-point: true
 intents: ["review", "integrate", "merge", "pull-request"]
 requires: []
 related-to: ["general/prepare-handoff", "general/review-and-fix", "general/code-review", "general/cross-repository-boundary-review"]
-readiness:
-  - predicate: "tool-available"
-    tool: "coding-tooling"
+readiness: []
 extensions:
   agent.procedure:
     schemaVersion: 1
     routing:
-      useWhen: ["A pull request is believed complete and the remaining question is whether the exact current candidate is integration-ready."]
-      doNotUseWhen: ["Implementation or review remediation is still actively changing the candidate.", "The task is to perform ordinary code review rather than a final exact-head integration decision."]
+      useWhen: ["A pull request is believed complete and the remaining question is whether it is ready to integrate."]
+      doNotUseWhen: ["Implementation or review remediation is still actively changing the candidate.", "The task is to perform ordinary code review rather than a final integration decision."]
       mutates: false
       approvalBoundary: "none"
     termination:
       terminal: true
-      doneWhen: ["A fresh mechanical receipt and semantic review produce either an integration-ready decision bound to the exact head/base identities or a concrete blocking decision; the identities are re-resolved immediately before the result is returned."]
-      stopWithoutChangeWhen: ["Required checks are skipped, pending, failed, or unavailable.", "The PR is draft, unmergeable, has unresolved review threads or unintegrated stack dependencies, or the reviewed head/base moved.", "A semantic preservation, authority, compatibility, security, persistence, browser/mobile, or performance requirement remains unproved."]
+      doneWhen: ["The current GitHub checks and semantic review produce an integration-ready decision or a concrete blocking decision."]
+      stopWithoutChangeWhen: ["Required checks are pending or failed.", "The PR is draft, unmergeable, has unresolved review threads or unintegrated stack dependencies.", "A semantic preservation, authority, compatibility, security, persistence, browser/mobile, or performance requirement remains unproved."]
       escalateWhen: ["The candidate is integration-ready but the current caller lacks authority to integrate it.", "A semantic requirement depends on unresolved human product or domain intent."]
-      evidenceRequired: ["The exact PR head and base SHAs, fresh mechanical receipt, actual diff, repository policy, relevant task/handoff evidence, and resolved semantic review requirements are available."]
-      outOfScope: ["Implementing merge queues or VCS mutation.", "Repairing the candidate inside the final review.", "Caching a prior integration-ready decision after head, base, check, mergeability, stack, or review state changes."]
+      evidenceRequired: ["Current PR status and checks, actual diff, repository policy, relevant task evidence, and resolved semantic review requirements are available."]
+      outOfScope: ["Implementing merge queues or VCS mutation.", "Repairing the candidate inside the final review.", "Repeating CI or verifying runner identity to re-prove GitHub's checks."]
     artifacts:
       consumes: ["candidate-head", "repository-state", "task-packet", "handoff-receipt", "review-state"]
       produces: ["integration-decision"]
@@ -33,23 +31,12 @@ extensions:
 
 # Final Integration Review
 
-Use this when a pull request is believed to be complete and the remaining question is whether the exact candidate may be integrated.
+Use this when a pull request is believed complete and the remaining question is whether it may be integrated.
 
-1. Resolve the current PR head SHA and base SHA. Treat both as immutable inputs to this review.
-2. Generate the mechanical receipt with those exact identities:
+1. Read the current pull request, its actual diff, required GitHub checks, mergeability, review threads, and any declared stack dependencies. Trust GitHub's current check status; do not launch another exact-head verification or runner-identity check.
+2. Read the repository `AGENTS.md`, installed conventions, and relevant task context. Review authority boundaries, preservation requirements, compatibility, persistence, protocol, security, browser/mobile behavior, and performance claims implicated by the change. Require representative evidence for material claims.
+3. Resolve real review findings. After a repair, inspect the changed concern and the normal CI result. Do not infer that an outdated thread has been resolved merely because its line moved.
+4. Before integration, use GitHub's current mergeability and required-check result. A merge precondition may guard against concurrent head movement; it does not require rerunning validation.
+5. Return the integration decision and any blockers. If the caller has authority to integrate, use the repository's existing merge mechanism without asking again.
 
-   `coding-tooling pr receipt <number> --expected-head <head-sha> --expected-base <base-sha> --json`
-
-3. Stop unless the receipt passes. Required skipped, pending, failed, or unavailable checks are not green. Draft state, unmergeability, unresolved review threads, an unintegrated stack dependency, a moved head, or unavailable exact-head check evidence remains blocking.
-4. Read the repository `AGENTS.md`, installed conventions, task packet/handoff when available, and the actual diff. Resolve every semantic review requirement against evidence. Pay particular attention to:
-   - the repository's declared authority owner and prohibited write-back direction;
-   - `mustPreserve` and `outOfScope` constraints;
-   - public/API/README/Pages claims that must not exceed demonstrated capability;
-   - compatibility, persistence, protocol, security, deterministic replay, and browser/mobile boundaries implicated by the change;
-   - performance claims, which require equivalent benchmark evidence rather than merely a green functional suite.
-5. Re-check review comments after repairs. Do not treat an outdated thread as resolved merely because its line moved; verify the concern no longer applies, reply with the repair evidence, and resolve the thread only then.
-6. If the PR head or base changes during the review, discard the integration receipt and repeat the exact-head review from step 1.
-7. Immediately before returning an integration-ready decision, re-resolve the current head and base. If either differs from the reviewed identities, repeat from step 1. Otherwise generate a fresh `coding-tooling pr receipt` with the same expected head and base and stop unless it passes. This refresh is required even when no file changed so mutable check, draft/mergeability, stack, and review-thread state is re-evaluated by `coding-tooling` instead of relying on a cached receipt.
-8. When the fresh mechanical receipt and semantic review both pass, return an integration-ready decision bound to the exact head SHA. If the caller already has explicit authority to integrate, hand that exact candidate to the repository's existing integration/auto-merge capability without asking for duplicate confirmation. Otherwise return the decision to the caller for the required authority step.
-
-Do not implement merge queues, VCS mutation, check collection, receipt-state tracking, or durable approval state in this skill. Those mechanics remain owned by `coding-tooling`, the hosting platform, or the caller/orchestrator.
+Keep CI execution, merge queues, VCS mutation, and durable approval state in their existing owners.
