@@ -22,7 +22,7 @@ Refactor any behavior-preserving structural improvement; generated/prototype cod
 - Preserve externally intended behavior. Feature work and behavior correction are out of scope.
 - Inspect after implementation even when the likely answer is `no-refactor-needed`; the implementing agent should not be the sole judge of its own generated structure.
 - Routine/local cleanup, including cohesive private file decomposition that preserves public interfaces, ownership, dependencies, and behavior, may proceed automatically from the green baseline.
-- A substantial authority, public API, persistence/protocol, or hard-to-reverse architecture change needs explicit owner intent before mutation. Reuse an already settled decision; when intent remains unresolved, ask one focused consequential question.
+- A substantial authority, public API, persistence/protocol, ownership/lifecycle/dependency boundary, or hard-to-reverse architecture change needs explicit owner intent before mutation. Reuse an already settled decision; when intent remains unresolved, ask one focused consequential question.
 - If you discover tests that are insensitive, misleading, or wrong enough to permit a major oversight, stop and explain the issue to the human. Do not silently rewrite those tests under the banner of refactoring.
 - A behavior correction returns through TDD once the human has decided the intended behavior.
 
