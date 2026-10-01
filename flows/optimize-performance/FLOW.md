@@ -17,6 +17,7 @@ flow:
       kind: invoke
       capability: "general/diagnosing-performance"
       output: "baseline"
+      output-contract: "agent.diagnosis-envelope/v1"
     - id: actionable
       kind: branch
       condition:
@@ -142,6 +143,7 @@ flow:
               kind: invoke
               capability: "general/diagnosing-performance"
               output: "revised-baseline"
+              output-contract: "agent.diagnosis-envelope/v1"
             - id: revised-actionable
               kind: branch
               condition:
