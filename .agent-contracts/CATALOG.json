@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "sourceRevision": "8abb31b438e3056623dfa4a9d77fea0b18b0aac3",
+  "contracts": [
+    {
+      "id": "agent.diagnosis-envelope/v1",
+      "schema": "schemas/diagnosis/envelope-v1.schema.json"
+    }
+  ]
+}

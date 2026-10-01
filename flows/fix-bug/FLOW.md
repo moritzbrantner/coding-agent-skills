@@ -17,6 +17,7 @@ flow:
       kind: invoke
       capability: "general/diagnosing-bugs"
       output: "diagnosis"
+      output-contract: "agent.diagnosis-envelope/v1"
     - id: unresolved-diagnosis
       kind: branch
       condition:
