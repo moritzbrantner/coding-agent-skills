@@ -1,7 +1,7 @@
 ---
 id: "general/repository-convergence"
 name: "repository-convergence"
-description: "Converge a repository toward its installed policy and deterministic tooling using one strongest real finding, a narrow repair, and repository-owned evidence."
+description: "Converge a repository toward its applicable policy and deterministic tooling using one strongest real finding, a narrow repair, and repository-owned evidence."
 kind: "skill"
 maturity: "provisional"
 entry-point: true
@@ -16,7 +16,7 @@ extensions: {}
 
 Use this skill for one bounded repository-convergence slice. It does not create durable queues, schedule future work, or replace repository-owned verification.
 
-Read the repository's `AGENTS.md`, installed `.conventions/index.md` and only the relevant convention modules, `.coding-tooling.json`, repository-owned validation commands, and current hosted-CI state when available. If the repository declares installed conventions but the managed snapshot is missing or corrupt, report that integrity failure instead of substituting live policy.
+Reuse the task’s [resolved policy context](../../docs/policy-context.md) for applicable engineering doctrine and repository-local exceptions. Read `.coding-tooling.json`, repository-owned validation commands, and current hosted-CI state when available.
 
 Establish a real baseline before editing: identify the exact branch/head under review, run or inspect the repository-owned deterministic checks, and distinguish blocking failures from advisory evidence. `coding-tooling findings` and similar heuristic detectors are evidence, not policy: do not turn a score or heuristic signal into a blocker unless repository policy explicitly promotes it or independent evidence establishes a defect.
 

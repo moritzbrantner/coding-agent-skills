@@ -86,6 +86,6 @@ The shared diagnosis confidence values are `confirmed`, `probable`, and `unresol
 
 Resolved browser-visible diagnoses use `payload.affectedSurface: browser`, which makes the executable flow invoke `general/browser-investigation` after the fix/refactor and before repository verification. Interactive browser evidence supplements rather than replaces the durable regression test owned by the TDD step.
 
-Before changing code, use the consumer repository's `AGENTS.md` and installed `.conventions/` modules as the policy context. A bug fix should not fetch a newer convention revision mid-run; convention updates are separate deliberate repository changes. Repositories that have not migrated may temporarily use `coding-tooling conventions resolve` as a compatibility fallback.
+Reuse the task’s [resolved policy context](../../docs/policy-context.md) for applicable engineering doctrine and repository-local exceptions.
 
 After green, refactor inspection, conditional browser verification, repository verification, and review are required. Any later remediation is a separate bounded caller decision; this flow does not loop.

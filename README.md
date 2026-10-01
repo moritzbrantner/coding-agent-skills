@@ -87,16 +87,7 @@ See [`evals/README.md`](evals/README.md) for case shape and [`docs/promotion.md`
 
 Skills do not copy engineering doctrine from `coding-agent-conventions`.
 
-For repository work, prefer the repository's committed policy context:
-
-1. read repository-local `AGENTS.md` guidance;
-2. read `.conventions/index.md` and the relevant installed module snapshots when present;
-3. use `coding-tooling conventions check` when convention-installation integrity matters;
-4. apply repository-local instructions as the most specific policy.
-
-Skills must not require live access to the shared conventions repository during ordinary work. `coding-tooling conventions resolve` is only a migration fallback for repositories that have not yet adopted installed convention modules.
-
-A repository's `conventions.lock.json` records which shared policy revision was installed. That lock is repository evidence and update state; skills should not invent their own policy pinning or synchronization mechanism.
+Use the shared [policy-context procedure](docs/policy-context.md) for repository work. Reuse the caller’s resolved context across skill handoffs; convention authority remains owned by REPO-018 and local precedence by REPO-002.
 
 ## Validate
 
@@ -106,7 +97,7 @@ Run:
 scripts/validate-capabilities
 ```
 
-When `coding-tooling` is available, also verify the installed policy snapshot with:
+When `coding-tooling` is available, also check managed convention-cache integrity with:
 
 ```bash
 coding-tooling conventions check

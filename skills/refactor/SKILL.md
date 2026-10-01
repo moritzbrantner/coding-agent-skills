@@ -28,4 +28,4 @@ Refactor any behavior-preserving structural improvement; generated/prototype cod
 
 Work in small, reviewable, behavior-preserving slices and re-run focused verification after each meaningful change.
 
-Stack-specific style, extraction thresholds, module vocabulary, and design doctrine come from repository-local guidance plus the installed convention modules. Read `AGENTS.md` and the relevant entries under `.conventions/` when present. `coding-tooling conventions check` may verify that the managed snapshots are intact, but it is not a substitute for tests or repository verification. If the repository has adopted installed policy and that installation is broken, report the failure rather than substituting live policy. Use `coding-tooling conventions resolve` only as a migration fallback for repositories that have not installed convention modules.
+Reuse the task’s [resolved policy context](../../docs/policy-context.md) for applicable engineering doctrine and repository-local exceptions. Stack-specific style, extraction criteria, and module vocabulary come from that context; cache-integrity checks do not replace behavior verification.

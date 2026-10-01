@@ -9,9 +9,7 @@ This repository owns general coding-agent reasoning skills, declarative flows, n
 - Deterministic mechanics belong in `coding-tooling`; do not reimplement parsers, check selection, formatting, verification, convention installation/integrity, evaluation execution, or VCS mechanics as prose.
 - Shared engineering doctrine belongs in `coding-agent-conventions`; skills apply it to concrete work but do not copy it.
 - Repository-specific context, commands, architecture boundaries, and exceptions belong in the consumer repository's `AGENTS.md`.
-- For repository work, read installed `.conventions/` policy when present. `coding-tooling conventions check` verifies installation integrity; do not fetch live shared policy merely to perform ordinary work.
-- `coding-tooling conventions resolve` is a migration fallback only for consumers that have not adopted installed convention modules.
-- `conventions.lock.json` is evidence of the installed shared-policy revision. Skills do not own a second synchronization or pinning mechanism.
+- Reuse the task’s [resolved policy context](docs/policy-context.md). Shared convention authority and local precedence belong in REPO-018 and REPO-002; deterministic resolution and cache repair belong in `coding-tooling`.
 - Cross-repository structured interchange belongs in `agent-contracts`.
 - Durable queues, scheduling, worktrees, retries, authority, run history, integration, and receipts belong in an orchestrator or caller, not in these skills. Skills may invoke ephemeral deterministic receipts owned by `coding-tooling` but must not persist or reinterpret them as durable state.
 

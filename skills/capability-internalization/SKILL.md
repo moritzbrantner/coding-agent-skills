@@ -65,4 +65,4 @@ Raise the evidence bar sharply for cryptography, TLS, database engines, distribu
 
 Do not equate generated-code cost with maintenance cost. Correctness surface, semantic compatibility, operations, security, long-term ownership, and failure modes remain part of the decision even when implementation is cheap.
 
-Follow the repository's installed engineering policy. In repositories adopting `PRINCIPLE-007`, external implementations are valid bootstrap choices and replacement is optional unless evidence establishes a concrete reason to proceed.
+Reuse the task’s [resolved policy context](../../docs/policy-context.md) for applicable engineering doctrine and repository-local exceptions. In repositories adopting `PRINCIPLE-007`, external implementations are valid bootstrap choices and replacement is optional unless evidence establishes a concrete reason to proceed.

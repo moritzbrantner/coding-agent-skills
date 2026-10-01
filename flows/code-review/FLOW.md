@@ -36,7 +36,7 @@ extensions: {}
 
 Run the review axes independently and keep their findings separate. Standards review always runs. Specification review runs only when an applicable ticket/spec artifact exists; a direct bug fix or bounded change without such an artifact remains reviewable rather than making the whole flow not-ready.
 
-For repository work, standards review uses repository-local guidance and the convention modules committed under `.conventions/`. Review the policy actually installed for the candidate rather than silently fetching a newer central policy revision. `coding-tooling conventions check` may be used to detect tampered or stale managed snapshots relative to the committed lock; central updates are a separate explicit repository change.
+Reuse the task’s [resolved policy context](../../docs/policy-context.md) for applicable engineering doctrine and repository-local exceptions. Standards review uses that context rather than choosing a separate authority at each axis.
 
 Repository-owned deterministic findings may be supplied as evidence to any review axis. Heuristic `coding-tooling` findings remain advisory unless repository policy explicitly promotes the detector or the review axis independently substantiates a defect. Keep advisory detector output distinct from blocking review findings; do not fail review merely because a heuristic score or signal is non-zero.
 
