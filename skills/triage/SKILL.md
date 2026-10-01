@@ -40,3 +40,5 @@ Use repository/runtime evidence directly. Separate severity from confidence: an 
 Issue trackers are optional publication/sync surfaces. Do not require an issue, add workflow labels, or create durable queue state merely to triage.
 
 Stop after a clear classification and recommended next capability; do not silently begin the fix.
+
+Use the [execution-escalation procedure](../../docs/execution-escalation.md) to distinguish a product defect, an unfaithful fixture, and infrastructure failure before recommending a repair or stronger execution layer.

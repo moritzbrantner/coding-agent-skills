@@ -57,3 +57,5 @@ A locally expensive helper may be only the symptom of an architectural decisionâ
 Preserve enough measurement detail to repeat the same scenario after a later change. Do not optimize code in this skill. Instrumentation or benchmark scaffolding may be created as evidence when necessary, but keep it separable from the eventual implementation. When the dominant cause is `architecture-data-movement`, make the ownership/interface evidence explicit so `architecture-review` and `codebase-design` can reason about the consequential change instead of treating the problem as a local refactor.
 
 Prefer `runtime-profiler` or repository-native profilers when available, but remain usable with ordinary platform tooling. Never infer a performance win from code shape alone, and never claim that a cleaner architecture is faster without measurement.
+
+Use the [execution-escalation procedure](../../docs/execution-escalation.md) for stronger runtime investigation and evidence handoffs when the current layer no longer distinguishes causes.

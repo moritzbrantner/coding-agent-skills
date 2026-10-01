@@ -1,0 +1,11 @@
+# Execution and escalation
+
+Apply the shared [PRINCIPLE-006](https://github.com/moritzbrantner/coding-agent-conventions/blob/main/principles/README.md#principle-006--escalate-complexity-only-when-the-workload-requires-it) progressive-complexity principle through the existing intake, triage, and diagnosis capabilities. This procedure does not add another workflow or require an orchestrator for direct work.
+
+Start with deterministic inspection and the narrowest useful checks, then a bounded edit and focused verification when the evidence supports one. Use iterative agent work or an environment-backed investigation when cheaper steps cannot distinguish the remaining causes. Go directly to runtime, browser, service, numerical, or environment evidence when the symptom inherently depends on it.
+
+Escalate when the current layer stops producing useful information: unchanged failures, ambiguous environment behavior, or a need for runtime feedback. An arbitrary retry count alone is not a reason. Classify product, fixture, tooling, and infrastructure ownership before selecting a repair; an unfaithful double or broken environment does not authorize altered product semantics or weakened assertions. A trustworthy diagnosis may also end with no owned repair.
+
+Carry forward the existing baseline/candidate identity, commands and exit status, focused failure output, classification, prior patch/result, and relevant runtime evidence. Reuse safe stable environments, dependency/tool caches, and resolved repository context. Include already-available environment identity when it explains the symptom; do not create a repeated attestation gate.
+
+When observed state can decide whether another expensive attempt is justified, deterministic tooling should make that decision. `coding-tooling` owns evidence extraction, normalization, and recording mechanics; the caller owns durable attempt/run history. Callers evaluating a routing policy retain attempts, provider/model, failures, escalation stage, and time/work where available. An ordinary direct task need not create that history or invent metadata to satisfy a framework.

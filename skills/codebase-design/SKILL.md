@@ -35,8 +35,12 @@ Reuse the task’s [resolved policy context](../../docs/policy-context.md) for a
 
 Understand the behavior and ownership boundaries first. Identify where state, policy, data, and side effects naturally belong. Prefer cohesive deep modules, small public surfaces, locality, and progressive composition when those principles are part of the applicable policy.
 
+Apply the resolved DESIGN-* rules when distinguishing hierarchical private files from public architecture. Ground a proposed extraction in a concrete current difficulty: the ownership/lifecycle/interface boundary it introduces, what becomes easier to change, and the added indirection. Private file organization may improve navigation without introducing a service, package, or public API. Do not invent an architectural problem from a line count or reject useful private decomposition as inherently architectural.
+
 Consider at least two plausible designs when the choice is consequential. Compare them against coupling, reversibility, operational complexity, testability, migration cost, and how much new abstraction they require. Recommend the smallest design that solves the actual boundary problem.
 
 This skill designs; it does not silently perform a broad architectural migration. Settled consequential choices can be handed to domain/ADR documentation and an implementation/refactoring flow.
+
+When a consequential API, authority, persistence/protocol, or irreversible choice remains unresolved after inspecting available evidence, present one focused decision and its material tradeoff. Reuse settled owner intent rather than asking the same approval again.
 
 When current policy access is unavailable, report the limitation through the policy-context procedure. Evidence-based design advice can continue, but must not claim shared-policy conformance.

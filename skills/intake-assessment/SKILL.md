@@ -38,3 +38,5 @@ Produce a compact assessment: intended outcome, apparent scope, likely affected 
 Do not create tasks, issues, or durable state. Do not ask the user for repository facts you can discover. Do not select a workflow merely by keyword; base the assessment on the actual uncertainty and risk.
 
 `choose-workflow` may consume this assessment to make an advisory routing recommendation.
+
+Apply the [execution-escalation procedure](../../docs/execution-escalation.md) when choosing how much execution context or iteration the uncertainty requires. A bounded ready task can proceed directly without routing confirmation or orchestration bookkeeping.
