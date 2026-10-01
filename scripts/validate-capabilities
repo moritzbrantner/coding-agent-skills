@@ -3,12 +3,16 @@ set -euo pipefail
 
 contracts_root="${AGENT_CONTRACTS_ROOT:-$PWD/.agent-contracts}"
 
-if command -v coding-tooling >/dev/null 2>&1; then
-  exec coding-tooling agent-capabilities validate . --contracts-root "$contracts_root"
+if [[ -n "${CODING_TOOLING_ROOT:-}" ]]; then
+  if [[ ! -f "${CODING_TOOLING_ROOT}/src/cli.ts" ]]; then
+    echo "CODING_TOOLING_ROOT must contain src/cli.ts." >&2
+    exit 2
+  fi
+  exec bun "${CODING_TOOLING_ROOT}/src/cli.ts" agent-capabilities validate . --contracts-root "$contracts_root"
 fi
 
-if [[ -n "${CODING_TOOLING_ROOT:-}" && -f "${CODING_TOOLING_ROOT}/src/cli.ts" ]]; then
-  exec bun "${CODING_TOOLING_ROOT}/src/cli.ts" agent-capabilities validate . --contracts-root "$contracts_root"
+if command -v coding-tooling >/dev/null 2>&1; then
+  exec coding-tooling agent-capabilities validate . --contracts-root "$contracts_root"
 fi
 
 echo "coding-tooling is required to validate the capability catalog." >&2

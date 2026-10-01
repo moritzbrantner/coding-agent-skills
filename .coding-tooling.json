@@ -2,17 +2,29 @@
   "schemaVersion": 1,
   "profile": "coding-agent-skills",
   "tiers": {
-    "default": ["package:check"]
+    "default": [
+      "lint",
+      "package:check"
+    ]
   },
-  "requiredCapabilities": ["package:check"],
+  "requiredCapabilities": [
+    "lint",
+    "package:check"
+  ],
   "capabilityCommands": {
     ".": {
-      "package:check": ["scripts/validate-capabilities"]
+      "package:check": [
+        "scripts/validate-capabilities"
+      ],
+      "lint": [
+        "shellcheck",
+        "scripts/validate-capabilities"
+      ]
     }
   },
   "conventionRefs": [
-    "AGENT-001",
-    "AGENT-007",
+    "PRINCIPLE-001",
+    "PRINCIPLE-003",
     "REPO-001",
     "REPO-012",
     "REPO-013",
@@ -21,6 +33,8 @@
   ],
   "merge": {
     "authority": "hosted",
-    "requiredChecks": ["capability-catalog"]
+    "requiredChecks": [
+      "capability-catalog"
+    ]
   }
 }
