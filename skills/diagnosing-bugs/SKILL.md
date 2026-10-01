@@ -46,3 +46,5 @@ You may create a failing regression test, reproducer, or instrumentation change 
 Do not ask the human for logs, versions, repository facts, or runtime evidence you can obtain yourself. Ask only when intended behavior or an external fact is genuinely unavailable.
 
 If evidence remains ambiguous, say so explicitly rather than selecting the most convenient hypothesis.
+
+Use the [execution-escalation procedure](../../docs/execution-escalation.md) when the current investigation stops producing useful evidence; carry the existing reproducer and failure classification forward rather than restarting or forcing a product fix for a fixture/infrastructure symptom.

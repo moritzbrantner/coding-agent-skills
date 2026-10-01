@@ -44,7 +44,7 @@ extensions:
     schemaVersion: 1
     routing:
       useWhen: ["The task asks to change consequential architecture or module boundaries rather than only assess or design them."]
-      doNotUseWhen: ["The request only needs a read-only architecture assessment.", "The target architecture is not yet sufficiently understood to propose a consequential change."]
+      doNotUseWhen: ["The request only needs a read-only architecture assessment.", "The target architecture is not yet sufficiently understood to propose a consequential change.", "The work is routine private file organization or an already-approved bounded implementation."]
       mutates: true
       approvalBoundary: "required"
     termination:
@@ -63,4 +63,4 @@ extensions:
 
 This flow turns read-only architecture findings into a concrete design and then a behavior-preserving implementation.
 
-Architectural/module-boundary changes are consequential by definition here, so the human approval gate is mandatory before refactoring. The flow does not create migration tasks, schedule workers, or retry failed changes; an outer runtime may decompose a larger migration.
+This flow is for a consequential boundary design that still needs owner approval, so its human gate precedes refactoring. Cohesive private file organization routes to `refactor`; an already-approved design routes to `implement` with that approval context rather than repeating this design-and-approval flow. The flow does not create migration tasks, schedule workers, or retry failed changes; an outer runtime may decompose a larger migration.
