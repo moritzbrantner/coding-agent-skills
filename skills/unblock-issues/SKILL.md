@@ -16,7 +16,7 @@ extensions:
       useWhen: ["Blocked work exists and the caller wants to identify and resolve the human decisions that prevent progress."]
       doNotUseWhen: ["Actionable implementation work remains available and the caller asked to keep implementing.", "The blocker is purely a still-open technical dependency that needs no human decision."]
       mutates: true
-      approvalBoundary: "human"
+      approvalBoundary: "required"
     termination:
       terminal: true
       doneWhen: ["Every blocked item in the invocation snapshot is either unblocked, waiting on a concrete non-decision dependency or external action, or has had its next unresolved human decision surfaced."]
