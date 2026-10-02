@@ -61,6 +61,8 @@ Provisional skills are discoverable for explicit use but are not enabled by the 
 - `capability-internalization` — evaluate whether an external capability should remain external, gain a stable boundary, or be replaced by a smaller specialized implementation using parity, performance, and real-consumer evidence.
 - `repository-convergence` — improve one repository-owned seam at a time from a real deterministic or independently substantiated finding, then verify the exact candidate head without turning heuristic scores into policy.
 - `engineering-retrospective` — explain why an engineering problem survived as long as it did and route the smallest reusable prevention improvement to implementation, architecture, procedure, tooling, policy, observability, task decomposition, orchestration, or external infrastructure without manufacturing systemic work from every incident.
+- `work-next-issue` — run one issue-work iteration across a configured repository set: skip currently blocked work without claims, complete the first actionable issue at its owning repository, and return control to the caller.
+- `unblock-issues` — inspect blocked work once, distinguish dependencies and manual actions from genuine human decisions, and resolve the decision frontier one question at a time.
 
 Removed from the initial catalog: `research`, `characterize-feature`, `grill-me`, general `handoff`, setup-as-a-skill, and peripheral helper skills.
 
