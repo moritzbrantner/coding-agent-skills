@@ -7,7 +7,7 @@ maturity: "stable"
 entry-point: true
 intents: ["review", "spec", "acceptance"]
 requires: []
-related-to: ["general/code-review", "general/to-spec", "general/to-tickets"]
+related-to: ["general/code-review", "general/to-spec"]
 readiness:
   - predicate: "artifact-available"
     artifact: "applicable-spec-or-ticket"

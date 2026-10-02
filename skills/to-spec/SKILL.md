@@ -7,7 +7,7 @@ maturity: "stable"
 entry-point: true
 intents: ["spec", "requirements", "planning"]
 requires: []
-related-to: ["general/grilling", "general/to-tickets", "general/spec-review"]
+related-to: ["general/grilling", "general/spec-review"]
 readiness: []
 extensions: {}
 ---

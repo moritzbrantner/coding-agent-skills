@@ -28,11 +28,9 @@ Structured flow outputs can be bound explicitly to later inputs, while ordinary 
 
 ## Documents and work artifacts
 
-Canonical specs and tickets are human-readable Markdown. Deterministic tooling parses and validates them one-way into structured models. The structured projection is never independently editable.
+Canonical specs are human-readable Markdown; work items are GitHub issues. Deterministic tooling parses and validates specs one-way into structured models. The structured projection is never independently editable.
 
-Specifications have stable immutable IDs. Tickets have stable immutable IDs and bind to both the parent spec ID and the exact spec content revision/hash from which they were derived.
-
-Under Agent Loop, ticket artifacts live in per-user orchestrator runtime storage. Standalone callers may keep the same Markdown ticket format in their own chosen queue location.
+Specifications have stable immutable IDs.
 
 ## Domain knowledge
 

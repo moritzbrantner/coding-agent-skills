@@ -1,6 +1,6 @@
 ---
 id: "eval/private-files-and-consequential-boundaries"
-capabilities: ["general/codebase-design", "general/refactor", "general/implement", "general/intake-assessment"]
+capabilities: ["general/codebase-design", "general/refactor", "general/implement"]
 critical: true
 ---
 

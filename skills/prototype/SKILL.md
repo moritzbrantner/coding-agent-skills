@@ -7,7 +7,7 @@ maturity: "stable"
 entry-point: true
 intents: ["prototype", "experiment", "spike"]
 requires: []
-related-to: ["general/intake-assessment", "general/codebase-design", "general/to-spec"]
+related-to: ["general/codebase-design", "general/to-spec"]
 readiness: []
 extensions: {}
 ---
