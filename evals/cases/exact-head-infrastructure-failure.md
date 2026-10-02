@@ -1,6 +1,6 @@
 ---
 id: "eval/exact-head-infrastructure-failure"
-capabilities: ["general/prepare-handoff", "general/final-integration-review", "general/repository-convergence"]
+capabilities: ["general/final-integration-review", "general/repository-convergence"]
 critical: true
 ---
 

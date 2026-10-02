@@ -4,7 +4,7 @@ This repository owns general coding-agent reasoning skills, declarative flows, n
 
 ## Boundaries
 
-- General capabilities must remain usable without `agent-loop-orchestrator`.
+- General capabilities must remain usable on their own, without an orchestrator.
 - Do not require GitHub, GitLab, or another issue tracker.
 - Deterministic mechanics belong in `coding-tooling`; do not reimplement parsers, check selection, formatting, verification, convention installation/integrity, evaluation execution, or VCS mechanics as prose.
 - Shared engineering doctrine belongs in `coding-agent-conventions`; skills apply it to concrete work but do not copy it.

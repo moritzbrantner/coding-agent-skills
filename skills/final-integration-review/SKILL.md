@@ -7,7 +7,7 @@ maturity: "stable"
 entry-point: true
 intents: ["review", "integrate", "merge", "pull-request"]
 requires: []
-related-to: ["general/prepare-handoff", "general/review-and-fix", "general/code-review", "general/cross-repository-boundary-review"]
+related-to: ["general/review-and-fix", "general/code-review", "general/cross-repository-boundary-review"]
 readiness: []
 extensions:
   agent.procedure:
@@ -25,7 +25,7 @@ extensions:
       evidenceRequired: ["Current PR status and checks, actual diff, repository policy, relevant task evidence, and resolved semantic review requirements are available."]
       outOfScope: ["Implementing merge queues or VCS mutation.", "Repairing the candidate inside the final review.", "Repeating CI or verifying runner identity to re-prove GitHub's checks."]
     artifacts:
-      consumes: ["candidate-head", "repository-state", "task-packet", "handoff-receipt", "review-state"]
+      consumes: ["candidate-head", "repository-state", "review-state"]
       produces: ["integration-decision"]
 ---
 

@@ -1,6 +1,6 @@
 ---
 id: "eval/stale-pr-evidence"
-capabilities: ["general/prepare-handoff", "general/final-integration-review", "general/continue-next-slice"]
+capabilities: ["general/final-integration-review"]
 critical: true
 ---
 

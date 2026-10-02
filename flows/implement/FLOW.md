@@ -79,4 +79,4 @@ Every implementation passes through refactor inspection; `refactor` may return `
 
 An approved local structure and testing strategy remain inputs, not new approval questions. Private file organization belongs to routine refactoring under the resolved DESIGN-* rules; route a genuinely unresolved consequential boundary choice to the owner before that mutation. A broken fixture or infrastructure failure is evidence to classify through diagnosis, not permission to change product semantics or weaken assertions.
 
-The final commit action is optional because commit authority belongs to the caller. An Agent Loop wrapper may replace or surround this with its own candidate/integration mechanics.
+The final commit action is optional because commit authority belongs to the caller.

@@ -1,8 +1,6 @@
 name = "standard"
 extends = "minimal"
 capabilities = [
-  "general/to-tickets",
-  "general/reconcile-tickets",
   "general/review-and-fix",
   "general/browser-investigation",
   "general/diagnosing-bugs",
@@ -13,13 +11,8 @@ capabilities = [
   "general/codebase-design",
   "general/architecture-review",
   "general/improve-codebase-architecture",
-  "general/intake-assessment",
-  "general/triage",
   "general/conflict-resolution",
   "general/resolve-merge-conflicts",
-  "general/choose-workflow",
-  "general/prepare-task-packet",
-  "general/continue-next-slice",
   "general/final-integration-review",
   "general/cross-repository-boundary-review",
 ]

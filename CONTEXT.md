@@ -9,12 +9,12 @@
 - **profile** — automatic-use allowlist for stable entry-point capabilities.
 - **readiness** — capability-specific prerequisites; one unavailable capability must not block unrelated work.
 - **general namespace** — stable capability IDs owned by this repository, such as `general/grilling`.
-- **caller** — a human/direct agent session, Agent Loop wrapper, or another runtime that invokes a capability.
+- **caller** — a human/direct agent session or another runtime that invokes a capability.
 - **settled decision** — a human decision or evidence-backed conclusion that may be written to durable project documentation.
 - **derived artifact** — deterministic projection such as a parsed spec/ticket model or generated capability catalog; never a second editable source of truth.
 
 ## Core ownership rule
 
-General skills never depend on Agent Loop. Agent-loop-specific wrappers may depend inward on these capabilities and map their results to task packets, evidence, receipts, or runtime state.
+General skills never depend on the caller's work loop or runtime state.
 
 `coding-agent-conventions` owns engineering policy. Skills reuse the task’s [resolved policy context](docs/policy-context.md) and report limitations without presenting fallback judgments as shared-policy conformance.

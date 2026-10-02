@@ -2,7 +2,7 @@
 
 Canonical home for the general coding-agent skills and declarative flows approved for the coding-agent landscape.
 
-The repository is provider-agnostic and independently usable. General capabilities never depend on `agent-loop-orchestrator`; Agent Loop may consume and wrap them with task identity, scope, authority, evidence, worktrees, and durable runtime state.
+The repository is provider-agnostic and independently usable. Capabilities do not depend on an orchestrator or a particular work loop; the caller owns task selection, worktrees and integration.
 
 ## Responsibility
 
@@ -31,8 +31,6 @@ They do **not** own shared code policy. `coding-agent-conventions` answers what 
 
 `standard` extends `minimal` with:
 
-- `to-tickets`
-- `reconcile-tickets`
 - `review-and-fix`
 - `browser-investigation`
 - `diagnosing-bugs`
@@ -43,14 +41,8 @@ They do **not** own shared code policy. `coding-agent-conventions` answers what 
 - `codebase-design`
 - `architecture-review`
 - `improve-codebase-architecture`
-- `intake-assessment`
-- `triage`
 - `conflict-resolution`
 - `resolve-merge-conflicts`
-- `choose-workflow`
-- `prepare-task-packet`
-- `continue-next-slice`
-- `prepare-handoff`
 - `final-integration-review`
 - `cross-repository-boundary-review`
 
@@ -112,5 +104,4 @@ This repository intentionally does not duplicate the `coding-tooling` parser/val
 - repository `AGENTS.md`: repository-specific context and exceptions.
 - `coding-tooling`: deterministic discovery, parsing, checks, convention installation/integrity, behavioral-evaluation execution, and action mechanics.
 - `agent-contracts`: cross-component contracts.
-- `agent-loop-orchestrator`: optional durable work state, scheduling, worktrees, retries, authority, candidates, receipts, and integration.
-- `agent-loop-setup`: machine-level bootstrap/environment integration.
+- the caller (a direct agent session, such as the global work loop in `moritzbrantner/dotfiles`): task selection, worktrees and integration, with GitHub issues as the durable work state.

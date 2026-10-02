@@ -7,7 +7,7 @@ maturity: "stable"
 entry-point: true
 intents: ["architecture", "dependency", "authority", "multi-repository"]
 requires: []
-related-to: ["general/architecture-review", "general/final-integration-review", "general/prepare-task-packet"]
+related-to: ["general/architecture-review", "general/final-integration-review"]
 readiness:
   - predicate: "tool-available"
     tool: "coding-tooling"
@@ -46,6 +46,6 @@ Use this before widening an implementation across repositories or during final r
 4. Keep dependency direction consistent with the owning contracts. Do not introduce sideways domain dependencies merely to exchange internal implementation data when a lower contract or explicit adapter is the correct boundary.
 5. Bound task expansion by ownership and contract needs, not an arbitrary repository count. If the required source graph keeps expanding, stop and classify it as architecture/migration work rather than recursively repairing unrelated repositories.
 6. When a repository has a real semantic authority boundary but no local declaration, derive the likely boundary from existing architecture and surface it as an explicit repository-guidance change for review. Do not invent ownership merely to make graph coverage reach 100%.
-7. Carry the relevant authority and exact-revision constraints into the task packet's `mustPreserve`, `outOfScope`, and semantic `reviewRequirements` so later handoff and integration review retain them.
+7. Record the relevant authority and exact-revision constraints in the issue or pull request (what must be preserved, what is out of scope, which semantic review requirements apply) so integration review retains them.
 
 The fleet graph is deterministic evidence about declared ownership and source state; this skill supplies architectural interpretation. It must not create a second dependency graph or override repository-local authority declarations in prose.
