@@ -72,7 +72,7 @@ The strict interchange shape is defined by `agent-contracts`. Deterministic pars
 
 Source validation proves that a capability is well-formed; it does not prove that the procedure makes good engineering decisions. Behavioral cases under `evals/cases/` exercise consequential distinctions such as exact-head evidence, advisory-vs-blocking findings, authority boundaries, valid no-change outcomes, and architectural performance costs.
 
-`coding-agent-skills` owns those scenarios and expected behavior. `coding-tooling` owns deterministic case parsing/execution/reporting; do not add a second provider-specific evaluator here.
+`coding-agent-skills` owns those scenarios and expected reasoning boundaries. `coding-tooling` owns deterministic case parsing/execution/reporting; do not add a second provider-specific evaluator here.
 
 See [`evals/README.md`](evals/README.md) for case shape and [`docs/promotion.md`](docs/promotion.md) for maturity criteria.
 
