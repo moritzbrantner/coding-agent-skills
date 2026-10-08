@@ -25,7 +25,7 @@ Run the capability against these independent fixtures:
 
 - Discover technologies, repository role, current module selection, and local instructions from repository evidence instead of asking the owner for those facts.
 - Treat registry dependency closure and managed-cache mechanics as deterministic concerns rather than human choices.
-- In fixture 1, form an evidence-backed explicit selection from the observed stack without asking whether React, Vite, Vitest, or Playwright are used.
+- In fixture 1, form an evidence-backed explicit selection from the observed stack without asking whether React, Vite, Vitest, or Playwright are used. After installation, discover and run normal repository validation even if local instructions do not name a command; do not stop at cache integrity.
 - In fixture 2, distinguish "Rust with benchmarks" from "performance is an explicit contract" and ask one concise consequential question before selecting the stronger performance policy.
 - In fixture 3, do not silently remove the existing module; surface policy weakening as an owner decision unless prior intent already settles it.
 - In fixture 4, use `conventions update` even though the selected modules are unchanged, then check integrity rather than editing generated policy files.

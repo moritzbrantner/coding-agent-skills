@@ -38,7 +38,7 @@ This skill owns the reasoning procedure for choosing repository policy. It does 
    - for a deliberate removal or replacement, change only the requested module selection in `conventions.json`, then use `conventions update` to rematerialize the managed cache;
    - when the selection is unchanged but the managed cache is stale or damaged, use `conventions update` to rematerialize it before the integrity check;
    - never hand-edit `conventions.lock.json` or files under `.conventions/`.
-7. Run `coding-tooling conventions check --json`. Then run any repository validation required by the repository-local instructions for the changed source/configuration surface.
+7. Run `coding-tooling conventions check --json`. Then discover and run the normal repository validation path through `coding-tooling`, including deterministic enforcement for the selected modules and any additional repository-local requirements for the changed source/configuration surface. Cache integrity does not run convention enforcement or replace normal repository checks.
 8. Report the requested modules, material owner decisions, local exceptions, and validation result. Do not claim that cache integrity proves current policy freshness.
 
 ## Human decisions
