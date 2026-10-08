@@ -24,7 +24,7 @@ This skill owns the reasoning procedure for choosing repository policy. It does 
    - read the applicable `AGENTS.md` files and other repository-local instructions;
    - read `conventions.json`, `conventions.lock.json`, and the managed `.conventions/` index when present;
    - inspect manifests, source roots, CI, tool configuration, and other direct evidence of languages, frameworks, infrastructure, and repository purpose.
-2. Obtain the current convention registry through the normal policy/tooling path. Honor an explicit task-selected revision; otherwise do not rely on a remembered catalog.
+2. Reuse caller-provided resolved policy context, including selected files, `sourceRevision`, and repository-local exceptions, for governed decisions. Obtain only missing catalog evidence through the normal policy/tooling path; honor an explicit task-selected revision and do not substitute a remembered catalog. Refresh the resolution after changing the module selection or when validation requires it.
 3. Build the candidate module set from repository evidence:
    - treat dependency closure as deterministic, not as a human decision;
    - distinguish modules that directly match observed technologies or repository roles from modules that introduce an optional engineering contract;
@@ -36,6 +36,7 @@ This skill owns the reasoning procedure for choosing repository policy. It does 
    - use `conventions init` for an uninitialized repository;
    - use `conventions add` for a purely additive change;
    - for a deliberate removal or replacement, change only the requested module selection in `conventions.json`, then use `conventions update` to rematerialize the managed cache;
+   - when the selection is unchanged but the managed cache is stale or damaged, use `conventions update` to rematerialize it before the integrity check;
    - never hand-edit `conventions.lock.json` or files under `.conventions/`.
 7. Run `coding-tooling conventions check --json`. Then run any repository validation required by the repository-local instructions for the changed source/configuration surface.
 8. Report the requested modules, material owner decisions, local exceptions, and validation result. Do not claim that cache integrity proves current policy freshness.

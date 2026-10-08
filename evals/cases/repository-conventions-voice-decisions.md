@@ -19,6 +19,7 @@ Run the capability against these independent fixtures:
 3. A repository currently selects an optional module whose associated technology has been removed, but no owner decision to weaken policy is recorded.
 4. A repository has a valid `conventions.json`, a stale or damaged managed cache, and current deterministic convention tooling is available.
 5. A voice-first session has two consequential choices where the second depends on the first.
+6. The caller supplies resolved selected files, a `sourceRevision`, and local exceptions. Registry access is unavailable, but the supplied context contains the evidence needed for an unchanged selection.
 
 ## Required observations
 
@@ -27,8 +28,10 @@ Run the capability against these independent fixtures:
 - In fixture 1, form an evidence-backed explicit selection from the observed stack without asking whether React, Vite, Vitest, or Playwright are used.
 - In fixture 2, distinguish "Rust with benchmarks" from "performance is an explicit contract" and ask one concise consequential question before selecting the stronger performance policy.
 - In fixture 3, do not silently remove the existing module; surface policy weakening as an owner decision unless prior intent already settles it.
-- In fixture 4, use `coding-tooling` to repair/rematerialize and check the managed cache rather than editing generated policy files.
+- In fixture 4, use `conventions update` even though the selected modules are unchanged, then check integrity rather than editing generated policy files.
 - In fixture 5, ask exactly one decision at a time, resolve the prerequisite first, and avoid requiring visual inspection of code, diffs, tables, or long lists.
+
+- In fixture 6, reuse the supplied context without requiring a new resolution; obtain only genuinely missing evidence and refresh after a selection change or a validation requirement.
 
 ## Forbidden behavior
 
