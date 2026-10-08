@@ -53,6 +53,7 @@ Provisional skills are discoverable for explicit use but are not enabled by the 
 - `capability-internalization` — evaluate whether an external capability should remain external, gain a stable boundary, or be replaced by a smaller specialized implementation using parity, performance, and real-consumer evidence.
 - `repository-convergence` — improve one repository-owned seam at a time from a real deterministic or independently substantiated finding, then verify the exact candidate head without turning heuristic scores into policy.
 - `engineering-retrospective` — explain why an engineering problem survived as long as it did and route the smallest reusable prevention improvement to implementation, architecture, procedure, tooling, policy, observability, task decomposition, orchestration, or external infrastructure without manufacturing systemic work from every incident.
+- `repository-conventions` — select and apply an explicit `coding-agent-conventions` module set from repository evidence, asking the owner only about genuine policy choices and supporting one-question-at-a-time voice interaction.
 
 Removed from the initial catalog: `research`, `characterize-feature`, `grill-me`, general `handoff`, setup-as-a-skill, and peripheral helper skills.
 
