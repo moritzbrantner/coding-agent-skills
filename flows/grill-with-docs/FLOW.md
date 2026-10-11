@@ -31,4 +31,6 @@ extensions: {}
 
 This human-facing flow composes `grilling` with `domain-modeling`. The reasoning remains in those skills.
 
+Use it to settle product or architectural direction **before** new major-feature specifications or implementation issues are prepared. A work loop invokes grilling later only when an important new owner choice blocks already-approved work. Routine well-specified fixes do not need this flow.
+
 `domain-modeling` writes only settled knowledge and reports each durable change. This flow always ends with an explicit human confirmation gate before a downstream spec, design, or implementation flow proceeds.

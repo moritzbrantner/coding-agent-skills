@@ -13,59 +13,68 @@ readiness:
     action: "repository.verify"
 flow:
   steps:
-    - id: testing-path
+    - id: approved-intent-gate
       kind: branch
       condition:
-        source: "testing-strategy.mode"
-        equals: "tdd"
-      then:
-        - id: red-green
-          kind: invoke
-          capability: "general/tdd"
-          output: "green-implementation"
-      else:
-        - id: approved-non-tdd-change
-          kind: action
-          action: "runtime.apply-approved-change"
-          optional: true
-          fallback: "agent"
-    - id: refactor-inspection
-      kind: invoke
-      capability: "general/refactor"
-      inputs:
-        baseline: "green-implementation-or-approved-non-tdd-change"
-      output: "refactor-result"
-    - id: verify
-      kind: action
-      action: "repository.verify"
-    - id: review
-      kind: invoke
-      capability: "general/code-review"
-      output: "first-review"
-    - id: remediate
-      kind: branch
-      condition:
-        source: "first-review.blocking"
+        source: "intent-readiness.ready"
         equals: true
       then:
-        - id: bounded-remediation
+        - id: testing-path
+          kind: branch
+          condition:
+            source: "testing-strategy.mode"
+            equals: "tdd"
+          then:
+            - id: red-green
+              kind: invoke
+              capability: "general/tdd"
+              output: "green-implementation"
+          else:
+            - id: approved-non-tdd-change
+              kind: action
+              action: "runtime.apply-approved-change"
+              optional: true
+              fallback: "agent"
+        - id: refactor-inspection
           kind: invoke
-          capability: "general/review-and-fix"
+          capability: "general/refactor"
           inputs:
-            findings: "first-review"
-          output: "remediation-result"
+            baseline: "green-implementation-or-approved-non-tdd-change"
+          output: "refactor-result"
+        - id: verify
+          kind: action
+          action: "repository.verify"
+        - id: review
+          kind: invoke
+          capability: "general/code-review"
+          output: "first-review"
+        - id: remediate
+          kind: branch
+          condition:
+            source: "first-review.blocking"
+            equals: true
+          then:
+            - id: bounded-remediation
+              kind: invoke
+              capability: "general/review-and-fix"
+              inputs:
+                findings: "first-review"
+              output: "remediation-result"
+          else: []
+        - id: commit
+          kind: action
+          action: "vcs.commit"
+          optional: true
+          fallback: "skip"
       else: []
-    - id: commit
-      kind: action
-      action: "vcs.commit"
-      optional: true
-      fallback: "skip"
 extensions: {}
 ---
 
 # Implement
 
-`implement` is a general executable flow, not a policy-heavy skill. The approved spec/ticket, repository-local guidance, and resolved convention modules determine the testing strategy and engineering policy.
+`implement` is a general executable flow, not a policy-heavy skill.
+
+The caller must supply `intent-readiness.ready` from repository-owned intent **before** invoking the flow: `true` for routine/well-specified work or a major feature whose consequential owner choices are already approved; `false` (or unavailable) for a material unresolved choice. Only the `true` branch contains TDD, production edits, verification and commit actions. The empty `else` branch makes no changes; report the affected scope as awaiting owner design through `grilling`. This is not a new owner confirmation gate or a separate issue queue. The approved spec/ticket, repository-local guidance, and resolved convention modules determine the testing strategy and engineering policy. For a new product or major feature, verify that existing owner-approved decisions establish the intended direction **before** implementation. Invoke `grilling` only when a consequential choice remains unresolved; do not re-grill a settled feature. When intent is unresolved, stop the affected scope rather than deriving a cheaper MVP from code.
 
 Reuse the task’s [resolved policy context](../../docs/policy-context.md) for applicable engineering doctrine and repository-local exceptions.
 

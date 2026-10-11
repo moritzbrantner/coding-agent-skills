@@ -16,7 +16,7 @@ extensions: {}
 
 This is both a direct entry point and a composable reasoning skill.
 
-Inspect existing `CONTEXT.md`, domain docs, ADRs, code, tests, and relevant evidence before changing durable knowledge. When code, tests, ADRs, and domain documentation disagree, no source wins automatically: investigate the contradiction, explain it, and ask the human which behavior is intended.
+Inspect existing repository-owned Decisions/Questions (prefer scoped `daq` queries when a Decision Atlas and the tool are available), `CONTEXT.md`, domain docs, ADRs, code and tests before changing durable knowledge. Owner-approved current decisions determine intended product behavior; code/tests establish implementation evidence, not permission to change intent. Investigate genuine contradictions and ask one owner question if needed. In a repository without an Atlas, follow its established decision-document authority.
 
 ## Durable knowledge
 
@@ -27,10 +27,10 @@ Inspect existing `CONTEXT.md`, domain docs, ADRs, code, tests, and relevant evid
 - Humans may record stable, meaningful domain-to-code mappings. Tool-discovered mappings are useful evidence but are not domain truth and are not written back automatically.
 - Write only settled knowledge. Do not persist provisional questions as facts.
 
-When a domain decision becomes settled, write the appropriate durable change and **immediately tell the user exactly what was written before continuing**. If the user asks to rewrite the last change, edit it and then resume.
+When a domain decision becomes settled, record the owner's concise Decision (or Question) in the owning Atlas when present; otherwise use the repository's existing authoritative document. Supporting domain docs and ADRs may expand on it, but must not become a competing product-decision source. **Tell the user exactly what was written before continuing.**
 
 ## ADRs
 
-Recommend an ADR when a decision is hard to reverse, surprising, or involves a real tradeoff, but ask before creating one. Default ADRs are minimal: context, decision, and why. Add alternatives, consequences, status, or other sections only when useful. A typo or clarification may edit an ADR; an actual decision change creates a new ADR and marks the previous one superseded.
+Use ADRs for consequential architecture rationale when they add value; do not require one per Atlas entry. In an Atlas repository, revise intent at the owning stable ID with `~~retired wording~~ replacement` (or only strikethrough to retire), preserving Git history; existing explicit supersession links remain valid. Where ADRs are the repository's authoritative decision format, follow its established version/supersession convention. Avoid producing duplicate authorities.
 
 Reuse the task’s [resolved policy context](../../docs/policy-context.md) for applicable engineering doctrine and repository-local exceptions. Use it for documentation paths and design vocabulary.
