@@ -65,7 +65,7 @@ extensions: {}
 
 # Implement
 
-`implement` is a general executable flow, not a policy-heavy skill. The approved spec/ticket, repository-local guidance, and resolved convention modules determine the testing strategy and engineering policy.
+`implement` is a general executable flow, not a policy-heavy skill. The approved spec/ticket, repository-local guidance, and resolved convention modules determine the testing strategy and engineering policy. For a new product or major feature, approved direction must have been settled through grilling **before** creating the implementation ticket; follow relevant current Atlas Decisions when present. If a consequential owner choice remains unresolved, stop that scope and return it to design rather than deriving a cheaper MVP from code.
 
 Reuse the task’s [resolved policy context](../../docs/policy-context.md) for applicable engineering doctrine and repository-local exceptions.
 
