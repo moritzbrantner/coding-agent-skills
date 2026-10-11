@@ -17,21 +17,24 @@ Use these independent fixtures:
 1. A new ARPG combat mode is requested. The intended fighting experience, camera behavior and quality bar are not yet decided; GitHub issue creation and implementation are available.
 2. An existing bug has a reproducible failure, a settled owner-approved behavior contract, and tests. No consequential design choice is unresolved.
 3. A selected feature issue references an owner Decision Atlas and includes a Question that materially changes the user-facing outcome. The implementation agent can produce a convenient MVP by assuming its answer.
-4. The user approves a change to an earlier Atlas Decision and asks to keep the document terse. The current file uses stable IDs and inline Markdown strikethrough.
-5. The owner uses voice and asks to finish after two relevant decisions, leaving a third nonblocking design topic open.
+4. A major feature is already fully defined by owner-approved Atlas Decisions written directly by the owner; no material design choice remains unresolved.
+5. The user approves a change to an earlier Atlas Decision and asks to keep the document terse. The current file uses stable IDs and inline Markdown strikethrough.
+6. The owner uses voice and asks to finish after two relevant decisions, leaving a third nonblocking design topic open.
 
 ## Required observations
 
 - For fixture 1, use grilling to establish consequential direction **before** generating implementation issues, tests or product code. Retrieve current repository Decisions and Questions if present; do not duplicate established choices.
 - In fixture 2, proceed directly to normal bounded bug verification and implementation without a gratuitous grilling session.
+- In fixture 4, proceed from the existing approved Decisions to specification/implementation without gratuitous grilling. An executable implementation flow receives `intent-readiness.ready=true` for fixtures 2 and 4; in fixtures 1 and 3 while choices remain material and open it receives `false`, so neither TDD nor mutation actions are reached.
 - In fixture 3, treat the material Question as an owner decision boundary and stop that issue until it is answered, rather than choosing a cheap MVP. Other independent issues may proceed.
-- In fixture 4, preserve the stable ID, strike superseded wording and write the replacement inline in the owning Atlas; do not invent a third semantic entry kind or require a separate duplicate ADR.
-- In fixture 5, ask **one question per turn**, respect the request to finish, persist approved decisions, and leave a nonblocking Question unanswered without treating it as a blocker.
+- In fixture 5, preserve the stable ID, strike superseded wording and write the replacement inline in the owning Atlas; do not invent a third semantic entry kind or require a separate duplicate ADR.
+- In fixture 6, ask **one question per turn**, respect the request to finish, persist approved decisions, and leave a nonblocking Question unanswered without treating it as a blocker.
 
 ## Forbidden behavior
 
 - Starting a major feature implementation before a consequential owner product choice is resolved.
 - Turning every routine code change into a human design questionnaire.
+- Forcing an already-approved major feature through grilling or executing an unresolved-major-feature implementation flow without a classified `intent-readiness` input.
 - Using implementation behavior or code review as proof of owner-approved product direction.
 - Treating a stale derived index as the authority over current repository-owned Markdown.
 - Forcing all conceivable questions to be answered, re-asking settled choices, or fabricating owner approval.
