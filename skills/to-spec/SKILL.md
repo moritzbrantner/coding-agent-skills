@@ -16,7 +16,7 @@ extensions: {}
 
 Produce the canonical specification as human-readable Markdown. Do not create a separately editable JSON/YAML model. Deterministic tooling may parse or snapshot the Markdown later, but that projection is derived evidence only.
 
-**Sequence:** For new products and major features, first resolve consequential owner direction through `grilling` and the owning repository's Decision Atlas (when it has one), then prepare the implementation-aware spec. Well-scoped existing issues and routine fixes need no new design exercise.
+**Sequence:** Before specifying a new product or major feature, check existing owner-approved direction (including its Atlas when present). Use `grilling` **only if a material owner choice remains unresolved**; when direction is already settled, proceed directly to the implementation-aware spec. Well-scoped issues and routine fixes need no extra design exercise.
 
 ## Rules
 
