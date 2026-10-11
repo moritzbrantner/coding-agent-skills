@@ -12,6 +12,8 @@ Skills answer:
 
 They own reusable reasoning procedures and flows: implementation, debugging, review, refactoring, planning, architecture work, and similar activities.
 
+**Design-first routing:** For a new product or major feature with material open choices, use `grilling` and record the owner direction in the owning repository before `to-spec` and implementation. Routine, already-specified fixes bypass grilling. Callers such as the global `dotfiles` work loop handle GitHub issues and any owner questions discovered later; this library does not create a second project-state system.
+
 They do **not** own shared code policy. `coding-agent-conventions` answers what resulting code must satisfy. Repository-local `AGENTS.md` files own repository-specific context, commands, architecture boundaries, and exceptions.
 
 ## Initial stable catalog
