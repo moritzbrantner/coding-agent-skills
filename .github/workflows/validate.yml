@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   capability-catalog:
+    name: merge-ready
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
