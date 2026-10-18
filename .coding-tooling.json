@@ -34,7 +34,7 @@
   "merge": {
     "authority": "hosted",
     "requiredChecks": [
-      "capability-catalog"
+      "merge-ready"
     ]
   }
 }
