@@ -24,7 +24,7 @@ jobs:
           bun-version: latest
       - name: Fetch accepted coding-tooling revision
         env:
-          CODING_TOOLING_REVISION: d9acd629fe91d3d19baa1f75f1099243e48ca79c
+          CODING_TOOLING_REVISION: 2ceb2b57c946fd042fdf098c05427519c146a62f
         run: |
           git clone --filter=blob:none --no-checkout https://github.com/moritzbrantner/coding-tooling.git "$RUNNER_TEMP/coding-tooling"
           git -C "$RUNNER_TEMP/coding-tooling" checkout --detach "$CODING_TOOLING_REVISION"
