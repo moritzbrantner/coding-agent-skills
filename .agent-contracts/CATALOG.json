@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "sourceRevision": "8abb31b438e3056623dfa4a9d77fea0b18b0aac3",
+  "sourceRevision": "fa86714f2a833b0f3cb88b05c09503f02937a67e",
   "contracts": [
     {
       "id": "agent.diagnosis-envelope/v1",
