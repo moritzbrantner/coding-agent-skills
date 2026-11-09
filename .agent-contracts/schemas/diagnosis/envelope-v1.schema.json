@@ -84,6 +84,10 @@
         "candidateRepairDirections": {
           "type": "array",
           "items": { "type": "string", "minLength": 1 }
+        },
+        "actionable": {
+          "type": "boolean",
+          "description": "Whether the evidence supports a specific repository-owned repair. `false` means no owned repair is justified, for example an external or infrastructure failure, and consumers must not enter a repair path. Absence means the producer made no statement."
         }
       }
     },

@@ -39,6 +39,8 @@ For browser-visible symptoms, use `general/browser-investigation` when it is ava
 
 Produce the shared `agent.diagnosis-envelope/v1` bug payload from `agent-contracts`, including symptom, reproducer, minimized case, cause hypothesis, candidate repair directions when supported, top-level confidence, and evidence references. When the behavior requires post-fix verification in a real browser, set `payload.affectedSurface` to the normalized value `browser`; callers must read that value from the bug payload rather than inventing a separate top-level diagnosis field.
 
+Set `payload.actionable` to `true` when the evidence supports a specific repository-owned repair, including a test, fixture, or harness repair. Set it to `false` when no owned repair is justified, such as an external or infrastructure failure, and whenever confidence is `unresolved`. A confirmed cause outside the repository stays `confirmed`; `actionable` carries the routing decision.
+
 Use `confidence: unresolved` when the available evidence cannot establish a sufficiently trustworthy cause. An unresolved diagnosis is a valid terminal diagnosis result; callers must not treat it as permission to guess a repair.
 
 You may create a failing regression test, reproducer, or instrumentation change as **handoff evidence**, but do not integrate the behavior fix and do not turn diagnosis into a hidden repair. `fix-bug` decides whether that evidence becomes permanent and owns the red-to-green transition.
