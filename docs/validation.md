@@ -2,7 +2,7 @@
 
 `coding-tooling` is the only deterministic parser/validator for this repository's capability sources.
 
-Use the Bun version declared in `.bun-version` and an installed `coding-tooling`, or an explicit accepted source checkout with frozen dependencies:
+Use the latest stable Bun and an installed `coding-tooling`, or an explicit accepted source checkout with frozen dependencies:
 
 ```bash
 export CODING_TOOLING_ROOT=/path/to/coding-tooling
